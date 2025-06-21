@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Guest, WeddingDetails } from '@/types/guest';
 
 interface WeddingInvitationProps {
@@ -13,11 +13,21 @@ const WeddingInvitation: React.FC<WeddingInvitationProps> = ({
   weddingDetails,
   isPreview = false 
 }) => {
+  const invitationRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Exposer la référence globalement pour le partage
+    if (invitationRef.current) {
+      (window as any).invitationElement = invitationRef.current;
+    }
+  }, []);
+
   return (
     <div 
+      ref={invitationRef}
       id="wedding-invitation" 
       className="relative bg-gradient-to-br from-slate-900 to-blue-900 p-8 rounded-lg shadow-2xl max-w-md mx-auto text-white overflow-hidden"
-      style={{ minHeight: '600px' }}
+      style={{ minHeight: '600px', width: '384px' }}
     >
       {/* Snowflakes Background */}
       <div className="absolute inset-0 pointer-events-none">
@@ -131,3 +141,4 @@ const WeddingInvitation: React.FC<WeddingInvitationProps> = ({
 };
 
 export default WeddingInvitation;
+

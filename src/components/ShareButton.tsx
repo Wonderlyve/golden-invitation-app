@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Share2, MessageCircle } from 'lucide-react';
+import { MessageCircle, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Guest } from '@/types/guest';
 import { generateInvitationImage, shareToWhatsApp } from '@/utils/shareUtils';
@@ -18,22 +18,35 @@ const ShareButton: React.FC<ShareButtonProps> = ({ guest }) => {
     setIsSharing(true);
     
     try {
-      const imageBlob = await generateInvitationImage('wedding-invitation');
-      await shareToWhatsApp(guest.name, guest.tableNumber, imageBlob || undefined);
+      console.log('Génération de l\'image pour', guest.name);
+      
+      // Générer l'image de l'invitation
+      const imageBlob = await generateInvitationImage();
+      
+      if (imageBlob) {
+        console.log('Image générée avec succès, taille:', imageBlob.size);
+        
+        await shareToWhatsApp(guest.name, guest.tableNumber, imageBlob);
+        
+        toast({
+          title: "Invitation partagée",
+          description: `L'invitation pour ${guest.name} a été préparée. L'image a été téléchargée et WhatsApp s'ouvre.`,
+        });
+      } else {
+        throw new Error('Impossible de générer l\'image');
+      }
+      
+    } catch (error) {
+      console.error('Erreur lors du partage:', error);
+      
+      // Fallback sans image
+      await shareToWhatsApp(guest.name, guest.tableNumber);
       
       toast({
         title: "Invitation partagée",
-        description: `L'invitation pour ${guest.name} a été préparée pour WhatsApp`,
-      });
-    } catch (error) {
-      console.error('Erreur lors du partage:', error);
-      toast({
-        title: "Erreur",
-        description: "Impossible de générer l'invitation. Tentative de partage sans image...",
+        description: `L'invitation pour ${guest.name} a été partagée via WhatsApp (sans image).`,
         variant: "destructive"
       });
-      // Fallback: share without image
-      await shareToWhatsApp(guest.name, guest.tableNumber);
     } finally {
       setIsSharing(false);
     }
@@ -54,6 +67,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ guest }) => {
       ) : (
         <>
           <MessageCircle className="w-4 h-4" />
+          <Download className="w-3 h-3" />
           WhatsApp
         </>
       )}
@@ -62,3 +76,4 @@ const ShareButton: React.FC<ShareButtonProps> = ({ guest }) => {
 };
 
 export default ShareButton;
+
