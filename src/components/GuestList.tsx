@@ -19,7 +19,7 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
 
   const handleAddGuest = () => {
     if (newGuestName.trim() && newGuestTable.trim()) {
-      addGuest(newGuestName.trim(), parseInt(newGuestTable));
+      addGuest(newGuestName.trim(), newGuestTable.trim());
       setNewGuestName('');
       setNewGuestTable('');
       setShowAddForm(false);
@@ -49,8 +49,7 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
               className="bg-white/20 border-white/30 text-white placeholder-white/70"
             />
             <Input
-              placeholder="Numéro de table"
-              type="number"
+              placeholder="Numéro de table (ex: 4, A2, VIP)"
               value={newGuestTable}
               onChange={(e) => setNewGuestTable(e.target.value)}
               className="bg-white/20 border-white/30 text-white placeholder-white/70"
@@ -75,43 +74,45 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
         {guests.map((guest) => (
           <Card 
             key={guest.id} 
-            className="p-4 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-200"
+            className="p-3 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-200"
           >
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => verifyGuest(guest.id)}
-                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-                      guest.isVerified 
-                        ? 'bg-green-500 border-green-500 text-white' 
-                        : 'border-white/50 hover:border-white'
-                    }`}
-                  >
-                    {guest.isVerified && <Check className="w-3 h-3" />}
-                  </button>
-                  <div>
-                    <h3 className="font-semibold text-white">{guest.name}</h3>
-                    <p className="text-sm text-gray-300">Table {guest.tableNumber}</p>
-                  </div>
+            <div className="space-y-3">
+              {/* Guest info row */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => verifyGuest(guest.id)}
+                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors shrink-0 ${
+                    guest.isVerified 
+                      ? 'bg-green-500 border-green-500 text-white' 
+                      : 'border-white/50 hover:border-white'
+                  }`}
+                >
+                  {guest.isVerified && <Check className="w-3 h-3" />}
+                </button>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-white truncate">{guest.name}</h3>
+                  <p className="text-sm text-gray-300">Table {guest.tableNumber}</p>
                 </div>
               </div>
               
-              <div className="flex items-center gap-2">
+              {/* Action buttons row */}
+              <div className="flex gap-2">
                 <Button
                   onClick={() => onSelectGuest(guest)}
                   variant="outline"
                   size="sm"
-                  className="border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-slate-900"
+                  className="flex-1 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-slate-900 text-xs"
                 >
                   Aperçu
                 </Button>
-                <ShareButton guest={guest} />
+                <div className="flex-1">
+                  <ShareButton guest={guest} />
+                </div>
                 <Button
                   onClick={() => deleteGuest(guest.id)}
                   variant="outline"
                   size="sm"
-                  className="border-red-400 text-red-400 hover:bg-red-400 hover:text-white"
+                  className="border-red-400 text-red-400 hover:bg-red-400 hover:text-white px-2"
                 >
                   <Trash2 className="w-4 h-4" />
                 </Button>

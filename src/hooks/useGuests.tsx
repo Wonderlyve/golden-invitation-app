@@ -23,7 +23,7 @@ export const useGuests = () => {
     setGuests(updatedGuests);
   };
 
-  const addGuest = (name: string, tableNumber: number) => {
+  const addGuest = (name: string, tableNumber: string) => {
     const newGuest: Guest = {
       id: Date.now().toString(),
       name,

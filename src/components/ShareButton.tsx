@@ -19,7 +19,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ guest }) => {
     
     try {
       const imageBlob = await generateInvitationImage('wedding-invitation');
-      shareToWhatsApp(guest.name, guest.tableNumber, imageBlob || undefined);
+      await shareToWhatsApp(guest.name, guest.tableNumber, imageBlob || undefined);
       
       toast({
         title: "Invitation partagée",
@@ -33,7 +33,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ guest }) => {
         variant: "destructive"
       });
       // Fallback: share without image
-      shareToWhatsApp(guest.name, guest.tableNumber);
+      await shareToWhatsApp(guest.name, guest.tableNumber);
     } finally {
       setIsSharing(false);
     }
@@ -43,7 +43,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ guest }) => {
     <Button
       onClick={handleShare}
       disabled={isSharing}
-      className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
+      className="w-full bg-green-600 hover:bg-green-700 text-white flex items-center justify-center gap-2 text-xs"
       size="sm"
     >
       {isSharing ? (

@@ -2,7 +2,7 @@
 export interface Guest {
   id: string;
   name: string;
-  tableNumber: number;
+  tableNumber: string; // Changed from number to string to allow letters
   isVerified: boolean;
   createdAt: Date;
 }
