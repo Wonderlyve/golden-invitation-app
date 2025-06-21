@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
 import { Guest } from '@/types/guest';
-import WeddingInvitation from '@/components/WeddingInvitation';
+import InvitationTemplates from '@/components/InvitationTemplates';
 import GuestList from '@/components/GuestList';
 import EditWeddingDialog from '@/components/EditWeddingDialog';
+import TemplateSelector from '@/components/TemplateSelector';
 import { useWeddingDetails } from '@/hooks/useWeddingDetails';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -17,6 +18,13 @@ const Index = () => {
   const handleSelectGuest = (guest: Guest) => {
     setSelectedGuest(guest);
     setCurrentView('preview');
+  };
+
+  const handleTemplateChange = (template: 'winter' | 'elegant' | 'romantic' | 'modern') => {
+    updateWeddingDetails({
+      ...weddingDetails,
+      template
+    });
   };
 
   return (
@@ -46,6 +54,10 @@ const Index = () => {
             )}
             
             <div className="flex gap-2">
+              <TemplateSelector
+                currentTemplate={weddingDetails.template}
+                onTemplateChange={handleTemplateChange}
+              />
               <EditWeddingDialog 
                 weddingDetails={weddingDetails}
                 onUpdate={updateWeddingDetails}
@@ -88,7 +100,8 @@ const Index = () => {
                 </div>
               </Card>
             )}
-            <WeddingInvitation 
+            <InvitationTemplates
+              template={weddingDetails.template}
               guest={selectedGuest} 
               weddingDetails={weddingDetails}
               isPreview={true}

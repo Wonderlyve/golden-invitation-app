@@ -16,4 +16,6 @@ export interface WeddingDetails {
   venueLocation: string;
   websiteUrl: string;
   couplePhotoUrl: string;
+  invitationText: string;
+  template: 'winter' | 'elegant' | 'romantic' | 'modern';
 }

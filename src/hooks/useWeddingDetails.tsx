@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { WeddingDetails } from '@/types/guest';
 
@@ -12,7 +11,9 @@ const defaultWeddingDetails: WeddingDetails = {
   venue: 'Sheraton Kauai Resort',
   venueLocation: 'Hawaii',
   websiteUrl: 'www.jackandsofia.com',
-  couplePhotoUrl: ''
+  couplePhotoUrl: '',
+  invitationText: 'Nous avons l\'honneur de vous inviter à célébrer notre union dans un cadre magique. Votre présence illuminera cette journée exceptionnelle.',
+  template: 'winter'
 };
 
 export const useWeddingDetails = () => {

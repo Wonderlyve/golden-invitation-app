@@ -11,8 +11,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Edit } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import TemplateSelector from './TemplateSelector';
+import { InvitationTemplate } from '@/types/template';
 
 interface EditWeddingDialogProps {
   weddingDetails: WeddingDetails;
@@ -65,6 +68,13 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
     }));
   };
 
+  const handleTemplateChange = (template: InvitationTemplate) => {
+    setFormData(prev => ({
+      ...prev,
+      template
+    }));
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -81,6 +91,16 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
           <DialogTitle>Modifier les détails du mariage</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Label>Modèle d'invitation</Label>
+            <div className="mt-1">
+              <TemplateSelector
+                currentTemplate={formData.template}
+                onTemplateChange={handleTemplateChange}
+              />
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="groomName">Nom du marié</Label>
@@ -152,6 +172,18 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
               value={formData.websiteUrl}
               onChange={(e) => handleInputChange('websiteUrl', e.target.value)}
               placeholder="www.exemple.com"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="invitationText">Texte de l'invitation</Label>
+            <Textarea
+              id="invitationText"
+              value={formData.invitationText}
+              onChange={(e) => handleInputChange('invitationText', e.target.value)}
+              placeholder="Votre message d'invitation personnalisé..."
+              className="min-h-[80px]"
+              required
             />
           </div>
 

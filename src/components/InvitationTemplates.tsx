@@ -1,0 +1,441 @@
+
+import React from 'react';
+import { Guest, WeddingDetails } from '@/types/guest';
+import { InvitationTemplate } from '@/types/template';
+
+interface InvitationTemplatesProps {
+  template: InvitationTemplate;
+  guest: Guest | null;
+  weddingDetails: WeddingDetails;
+  isPreview?: boolean;
+}
+
+const WinterTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative bg-gradient-to-br from-slate-900 to-blue-900 p-8 rounded-lg shadow-2xl max-w-md mx-auto text-white overflow-hidden"
+    style={{ minHeight: '600px' }}
+  >
+    {/* Snowflakes Background */}
+    <div className="absolute inset-0 pointer-events-none">
+      {[...Array(20)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute text-white opacity-20 animate-pulse"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            fontSize: `${Math.random() * 10 + 8}px`,
+            animationDelay: `${Math.random() * 2}s`
+          }}
+        >
+          ❄
+        </div>
+      ))}
+    </div>
+
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-yellow-400 text-sm font-light tracking-wide uppercase">
+        Ceremony on {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-yellow-400 text-2xl font-bold tracking-wider mt-2 mb-4">
+        SAVE THE DATE
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="relative">
+        <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+          <div 
+            className="w-full h-full rounded-full bg-cover bg-center bg-gray-300"
+            style={{
+              backgroundImage: weddingDetails.couplePhotoUrl ? 
+                `url(${weddingDetails.couplePhotoUrl})` : 
+                'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)'
+            }}
+          >
+            {!weddingDetails.couplePhotoUrl && (
+              <div className="w-full h-full rounded-full flex items-center justify-center text-gray-400 text-2xl">
+                💑
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="absolute inset-0 rounded-full border-4 border-yellow-400 animate-pulse"></div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-bold text-white">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-300 text-sm leading-relaxed px-4">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-yellow-400 text-lg font-semibold">
+        JOIN MARRIAGE ON {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-white font-medium">{weddingDetails.venue}</p>
+      <p className="text-gray-300 text-sm">{weddingDetails.venueLocation}</p>
+      {weddingDetails.websiteUrl && (
+        <p className="text-yellow-400 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+      )}
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 pt-4 border-t border-yellow-400/30 relative z-10">
+        <p className="text-yellow-400 font-medium">
+          Cher(e) {guest.name}
+        </p>
+        <p className="text-white text-sm mt-1">
+          Table {guest.tableNumber}
+        </p>
+      </div>
+    )}
+
+    {/* Decorative Elements */}
+    <div className="absolute top-4 left-4 text-yellow-400 opacity-30">
+      <div className="w-8 h-8 border-t-2 border-l-2 border-yellow-400"></div>
+    </div>
+    <div className="absolute top-4 right-4 text-yellow-400 opacity-30">
+      <div className="w-8 h-8 border-t-2 border-r-2 border-yellow-400"></div>
+    </div>
+    <div className="absolute bottom-4 left-4 text-yellow-400 opacity-30">
+      <div className="w-8 h-8 border-b-2 border-l-2 border-yellow-400"></div>
+    </div>
+    <div className="absolute bottom-4 right-4 text-yellow-400 opacity-30">
+      <div className="w-8 h-8 border-b-2 border-r-2 border-yellow-400"></div>
+    </div>
+  </div>
+);
+
+const ElegantTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative bg-gradient-to-br from-gray-900 via-purple-900 to-black p-8 rounded-lg shadow-2xl max-w-md mx-auto text-white overflow-hidden"
+    style={{ minHeight: '600px' }}
+  >
+    {/* Elegant Pattern Background */}
+    <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+      }}></div>
+    </div>
+
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent mx-auto mb-4"></div>
+      <p className="text-purple-300 text-sm font-light tracking-widest uppercase">
+        {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-purple-300 text-xl font-serif tracking-wider mt-2 mb-4">
+        VOUS ÊTES INVITÉS
+      </h1>
+      <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent mx-auto"></div>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="relative">
+        <div className="w-28 h-28 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 p-1 shadow-lg">
+          <div 
+            className="w-full h-full rounded-full bg-cover bg-center bg-gray-300"
+            style={{
+              backgroundImage: weddingDetails.couplePhotoUrl ? 
+                `url(${weddingDetails.couplePhotoUrl})` : 
+                'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)'
+            }}
+          >
+            {!weddingDetails.couplePhotoUrl && (
+              <div className="w-full h-full rounded-full flex items-center justify-center text-gray-400 text-xl">
+                💑
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-2xl font-serif text-white">
+        {weddingDetails.groomName}
+      </h2>
+      <div className="text-purple-300 text-lg my-2 font-serif">&</div>
+      <h2 className="text-2xl font-serif text-white">
+        {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-300 text-sm leading-relaxed px-6 font-serif italic">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-purple-300 text-base font-serif tracking-wide">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-white font-medium font-serif">{weddingDetails.venue}</p>
+      <p className="text-gray-300 text-sm">{weddingDetails.venueLocation}</p>
+      {weddingDetails.websiteUrl && (
+        <p className="text-purple-400 text-sm mt-2 font-serif">{weddingDetails.websiteUrl}</p>
+      )}
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 pt-4 border-t border-purple-400/30 relative z-10">
+        <p className="text-purple-300 font-medium font-serif">
+          {guest.name}
+        </p>
+        <p className="text-white text-sm mt-1">
+          Table {guest.tableNumber}
+        </p>
+      </div>
+    )}
+  </div>
+);
+
+const RomanticTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative bg-gradient-to-br from-pink-100 via-rose-200 to-pink-300 p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ minHeight: '600px' }}
+  >
+    {/* Floral Background */}
+    <div className="absolute inset-0 pointer-events-none">
+      {[...Array(15)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute text-pink-300 opacity-40"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            fontSize: `${Math.random() * 8 + 12}px`,
+            transform: `rotate(${Math.random() * 360}deg)`
+          }}
+        >
+          🌸
+        </div>
+      ))}
+    </div>
+
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-rose-600 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-rose-700 text-xl font-script tracking-wider mt-2 mb-4">
+        Avec Amour
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="relative">
+        <div className="w-32 h-32 rounded-full bg-gradient-to-r from-rose-400 to-pink-400 p-1 shadow-lg">
+          <div 
+            className="w-full h-full rounded-full bg-cover bg-center bg-white"
+            style={{
+              backgroundImage: weddingDetails.couplePhotoUrl ? 
+                `url(${weddingDetails.couplePhotoUrl})` : 
+                'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%)'
+            }}
+          >
+            {!weddingDetails.couplePhotoUrl && (
+              <div className="w-full h-full rounded-full flex items-center justify-center text-rose-400 text-2xl">
+                💑
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="absolute -top-2 -right-2 text-2xl">🌹</div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-script text-rose-700">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 italic">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-rose-600 text-lg font-medium">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+      <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+      {weddingDetails.websiteUrl && (
+        <p className="text-rose-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+      )}
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 pt-4 border-t border-rose-300 relative z-10">
+        <p className="text-rose-600 font-medium">
+          Cher(e) {guest.name}
+        </p>
+        <p className="text-gray-700 text-sm mt-1">
+          Table {guest.tableNumber}
+        </p>
+      </div>
+    )}
+
+    {/* Heart decoration */}
+    <div className="absolute bottom-4 right-4 text-rose-400 text-2xl opacity-60">
+      💕
+    </div>
+  </div>
+);
+
+const ModernTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative bg-white p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-900 overflow-hidden border"
+    style={{ minHeight: '600px' }}
+  >
+    {/* Geometric Background */}
+    <div className="absolute inset-0">
+      <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+      <div className="absolute bottom-0 right-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+    </div>
+
+    {/* Header */}
+    <div className="text-center mb-8 relative z-10 pt-8">
+      <p className="text-indigo-600 text-xs font-semibold tracking-widest uppercase">
+        {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-gray-900 text-lg font-light tracking-wide mt-4">
+        INVITATION
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-8 relative z-10">
+      <div className="relative">
+        <div className="w-24 h-24 rounded-sm bg-gradient-to-r from-indigo-500 to-purple-600 p-0.5 shadow-lg">
+          <div 
+            className="w-full h-full rounded-sm bg-cover bg-center bg-gray-100"
+            style={{
+              backgroundImage: weddingDetails.couplePhotoUrl ? 
+                `url(${weddingDetails.couplePhotoUrl})` : 
+                'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'
+            }}
+          >
+            {!weddingDetails.couplePhotoUrl && (
+              <div className="w-full h-full rounded-sm flex items-center justify-center text-gray-400 text-xl">
+                💑
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-8 relative z-10">
+      <h2 className="text-2xl font-light text-gray-900 tracking-wide">
+        {weddingDetails.groomName.toUpperCase()}
+      </h2>
+      <div className="w-8 h-0.5 bg-indigo-500 mx-auto my-3"></div>
+      <h2 className="text-2xl font-light text-gray-900 tracking-wide">
+        {weddingDetails.brideName.toUpperCase()}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-8 relative z-10">
+      <p className="text-gray-600 text-sm leading-relaxed px-8 font-light">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-indigo-600 text-base font-medium tracking-wide">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-8 relative z-10">
+      <p className="text-gray-900 font-medium">{weddingDetails.venue}</p>
+      <p className="text-gray-600 text-sm mt-1">{weddingDetails.venueLocation}</p>
+      {weddingDetails.websiteUrl && (
+        <p className="text-indigo-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+      )}
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 pt-6 border-t border-gray-200 relative z-10">
+        <p className="text-indigo-600 font-medium">
+          {guest.name}
+        </p>
+        <p className="text-gray-600 text-sm mt-1">
+          Table {guest.tableNumber}
+        </p>
+      </div>
+    )}
+  </div>
+);
+
+const InvitationTemplates: React.FC<InvitationTemplatesProps> = ({
+  template,
+  guest,
+  weddingDetails,
+  isPreview = false
+}) => {
+  switch (template) {
+    case 'winter':
+      return <WinterTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'elegant':
+      return <ElegantTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'romantic':
+      return <RomanticTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'modern':
+      return <ModernTemplate guest={guest} weddingDetails={weddingDetails} />;
+    default:
+      return <WinterTemplate guest={guest} weddingDetails={weddingDetails} />;
+  }
+};
+
+export default InvitationTemplates;
