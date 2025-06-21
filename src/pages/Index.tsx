@@ -1,8 +1,10 @@
 
 import React, { useState } from 'react';
-import { WeddingDetails, Guest } from '@/types/guest';
+import { Guest } from '@/types/guest';
 import WeddingInvitation from '@/components/WeddingInvitation';
 import GuestList from '@/components/GuestList';
+import EditWeddingDialog from '@/components/EditWeddingDialog';
+import { useWeddingDetails } from '@/hooks/useWeddingDetails';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ArrowLeft, Users, Eye } from 'lucide-react';
@@ -10,17 +12,7 @@ import { ArrowLeft, Users, Eye } from 'lucide-react';
 const Index = () => {
   const [currentView, setCurrentView] = useState<'guests' | 'preview'>('guests');
   const [selectedGuest, setSelectedGuest] = useState<Guest | null>(null);
-
-  const weddingDetails: WeddingDetails = {
-    groomName: 'Jack',
-    brideName: 'Sofia',
-    ceremonyTime: '10AM',
-    weddingDate: '22ᵀᴴ OCT',
-    venue: 'Sheraton Kauai Resort',
-    venueLocation: 'Hawaii',
-    websiteUrl: 'www.jackandsofia.com',
-    couplePhotoUrl: '' // Vous pouvez ajouter une URL d'image ici
-  };
+  const { weddingDetails, updateWeddingDetails } = useWeddingDetails();
 
   const handleSelectGuest = (guest: Guest) => {
     setSelectedGuest(guest);
@@ -47,11 +39,17 @@ const Index = () => {
                 <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
                   💑
                 </div>
-                <h1 className="text-lg font-bold text-white">Jack & Sofia</h1>
+                <h1 className="text-lg font-bold text-white">
+                  {weddingDetails.groomName} & {weddingDetails.brideName}
+                </h1>
               </div>
             )}
             
             <div className="flex gap-2">
+              <EditWeddingDialog 
+                weddingDetails={weddingDetails}
+                onUpdate={updateWeddingDetails}
+              />
               <Button
                 onClick={() => setCurrentView('guests')}
                 variant={currentView === 'guests' ? 'default' : 'ghost'}
