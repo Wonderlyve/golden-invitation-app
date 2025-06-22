@@ -20,7 +20,7 @@ const Index = () => {
     setCurrentView('preview');
   };
 
-  const handleTemplateChange = (template: 'winter' | 'elegant' | 'romantic' | 'modern') => {
+  const handleTemplateChange = (template: 'winter' | 'elegant' | 'romantic' | 'modern' | 'balloons' | 'celebration' | 'floral' | 'botanical' | 'oval' | 'purple' | 'watercolor' | 'purple-roses' | 'coral' | 'garden') => {
     updateWeddingDetails({
       ...weddingDetails,
       template

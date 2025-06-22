@@ -39,11 +39,11 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({
           <Palette className="w-4 h-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Choisir un modèle</DialogTitle>
         </DialogHeader>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-3">
           {TEMPLATES.map((template) => (
             <Card
               key={template.id}
@@ -56,7 +56,7 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({
             >
               <div className="text-center">
                 <div className="text-2xl mb-2">{template.preview}</div>
-                <h3 className="font-medium text-sm">{template.name}</h3>
+                <h3 className="font-medium text-xs">{template.name}</h3>
                 <p className="text-xs text-gray-500 mt-1">{template.description}</p>
               </div>
             </Card>

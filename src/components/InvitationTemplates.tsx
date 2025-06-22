@@ -418,6 +418,916 @@ const ModernTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDet
   </div>
 );
 
+const BalloonsTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ 
+      minHeight: '600px',
+      backgroundImage: `url('/lovable-uploads/329c0785-da3d-46e0-ada1-275da18b586c.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 bg-pink-200/40 rounded-lg"></div>
+    
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-pink-700 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-pink-800 text-xl font-bold tracking-wider mt-2 mb-4">
+        SAVE THE DATE
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+        <div 
+          className="w-full h-full rounded-full bg-cover bg-center bg-white"
+          style={{
+            backgroundImage: weddingDetails.couplePhotoUrl ? 
+              `url(${weddingDetails.couplePhotoUrl})` : 
+              'linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%)'
+          }}
+        >
+          {!weddingDetails.couplePhotoUrl && (
+            <div className="w-full h-full rounded-full flex items-center justify-center text-pink-500 text-2xl">
+              💑
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-bold text-pink-800">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/80 py-3 rounded-lg">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-pink-700 text-lg font-semibold bg-white/80 py-2 px-4 rounded-lg inline-block">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="bg-white/80 py-3 px-4 rounded-lg">
+        <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+        <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+        {weddingDetails.websiteUrl && (
+          <p className="text-pink-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 relative z-10">
+        <div className="bg-white/90 py-3 px-4 rounded-lg">
+          <p className="text-pink-700 font-medium">
+            Cher(e) {guest.name}
+          </p>
+          <p className="text-gray-700 text-sm mt-1">
+            Table {guest.tableNumber}
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+const CelebrationTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ 
+      minHeight: '600px',
+      backgroundImage: `url('/lovable-uploads/a4e16797-fd1d-4936-8ac7-1eb39ab7c5d0.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 bg-orange-100/60 rounded-lg"></div>
+    
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-orange-700 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-orange-800 text-xl font-bold tracking-wider mt-2 mb-4">
+        CÉLÉBRATION
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+        <div 
+          className="w-full h-full rounded-full bg-cover bg-center bg-white"
+          style={{
+            backgroundImage: weddingDetails.couplePhotoUrl ? 
+              `url(${weddingDetails.couplePhotoUrl})` : 
+              'linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%)'
+          }}
+        >
+          {!weddingDetails.couplePhotoUrl && (
+            <div className="w-full h-full rounded-full flex items-center justify-center text-orange-500 text-2xl">
+              💑
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-bold text-orange-800">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/90 py-3 rounded-lg">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-orange-700 text-lg font-semibold bg-white/90 py-2 px-4 rounded-lg inline-block">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="bg-white/90 py-3 px-4 rounded-lg">
+        <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+        <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+        {weddingDetails.websiteUrl && (
+          <p className="text-orange-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 relative z-10">
+        <div className="bg-white/95 py-3 px-4 rounded-lg">
+          <p className="text-orange-700 font-medium">
+            Cher(e) {guest.name}
+          </p>
+          <p className="text-gray-700 text-sm mt-1">
+            Table {guest.tableNumber}
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+const FloralTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ 
+      minHeight: '600px',
+      backgroundImage: `url('/lovable-uploads/b5fc49a6-606c-46c4-a27f-4b756be34229.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 bg-pink-50/80 rounded-lg"></div>
+    
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-rose-700 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-rose-800 text-xl font-serif tracking-wider mt-2 mb-4">
+        AVEC AMOUR
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+        <div 
+          className="w-full h-full rounded-full bg-cover bg-center bg-white"
+          style={{
+            backgroundImage: weddingDetails.couplePhotoUrl ? 
+              `url(${weddingDetails.couplePhotoUrl})` : 
+              'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%)'
+          }}
+        >
+          {!weddingDetails.couplePhotoUrl && (
+            <div className="w-full h-full rounded-full flex items-center justify-center text-rose-500 text-2xl">
+              💑
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-serif text-rose-800">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/90 py-3 rounded-lg italic">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-rose-700 text-lg font-medium bg-white/90 py-2 px-4 rounded-lg inline-block">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="bg-white/90 py-3 px-4 rounded-lg">
+        <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+        <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+        {weddingDetails.websiteUrl && (
+          <p className="text-rose-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 relative z-10">
+        <div className="bg-white/95 py-3 px-4 rounded-lg">
+          <p className="text-rose-700 font-medium">
+            Cher(e) {guest.name}
+          </p>
+          <p className="text-gray-700 text-sm mt-1">
+            Table {guest.tableNumber}
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+const BotanicalTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ 
+      minHeight: '600px',
+      backgroundImage: `url('/lovable-uploads/2fe1721d-1dc1-4dc9-96a0-40cf8cf99555.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 bg-green-50/70 rounded-lg"></div>
+    
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-green-700 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-green-800 text-xl font-serif tracking-wider mt-2 mb-4">
+        NATURE & AMOUR
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+        <div 
+          className="w-full h-full rounded-full bg-cover bg-center bg-white"
+          style={{
+            backgroundImage: weddingDetails.couplePhotoUrl ? 
+              `url(${weddingDetails.couplePhotoUrl})` : 
+              'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)'
+          }}
+        >
+          {!weddingDetails.couplePhotoUrl && (
+            <div className="w-full h-full rounded-full flex items-center justify-center text-green-500 text-2xl">
+              💑
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-serif text-green-800">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/90 py-3 rounded-lg">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-green-700 text-lg font-medium bg-white/90 py-2 px-4 rounded-lg inline-block">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="bg-white/90 py-3 px-4 rounded-lg">
+        <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+        <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+        {weddingDetails.websiteUrl && (
+          <p className="text-green-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 relative z-10">
+        <div className="bg-white/95 py-3 px-4 rounded-lg">
+          <p className="text-green-700 font-medium">
+            Cher(e) {guest.name}
+          </p>
+          <p className="text-gray-700 text-sm mt-1">
+            Table {guest.tableNumber}
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+const OvalTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ 
+      minHeight: '600px',
+      backgroundImage: `url('/lovable-uploads/95f5cf97-c844-4ddf-aae2-5f1adabe145f.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 bg-pink-50/80 rounded-lg"></div>
+    
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-pink-700 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-pink-800 text-xl font-script tracking-wider mt-2 mb-4">
+        INVITATION
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+        <div 
+          className="w-full h-full rounded-full bg-cover bg-center bg-white"
+          style={{
+            backgroundImage: weddingDetails.couplePhotoUrl ? 
+              `url(${weddingDetails.couplePhotoUrl})` : 
+              'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%)'
+          }}
+        >
+          {!weddingDetails.couplePhotoUrl && (
+            <div className="w-full h-full rounded-full flex items-center justify-center text-pink-500 text-2xl">
+              💑
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-script text-pink-800">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/90 py-3 rounded-lg italic">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-pink-700 text-lg font-medium bg-white/90 py-2 px-4 rounded-lg inline-block">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="bg-white/90 py-3 px-4 rounded-lg">
+        <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+        <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+        {weddingDetails.websiteUrl && (
+          <p className="text-pink-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 relative z-10">
+        <div className="bg-white/95 py-3 px-4 rounded-lg">
+          <p className="text-pink-700 font-medium">
+            Cher(e) {guest.name}
+          </p>
+          <p className="text-gray-700 text-sm mt-1">
+            Table {guest.tableNumber}
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+const PurpleTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ 
+      minHeight: '600px',
+      backgroundImage: `url('/lovable-uploads/cd3ffd55-89e0-448d-9d5b-cb7d8885f77d.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 bg-purple-50/80 rounded-lg"></div>
+    
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-purple-700 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-purple-800 text-xl font-serif tracking-wider mt-2 mb-4">
+        ÉLÉGANCE
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+        <div 
+          className="w-full h-full rounded-full bg-cover bg-center bg-white"
+          style={{
+            backgroundImage: weddingDetails.couplePhotoUrl ? 
+              `url(${weddingDetails.couplePhotoUrl})` : 
+              'linear-gradient(135deg, #faf5ff 0%, #e9d5ff 100%)'
+          }}
+        >
+          {!weddingDetails.couplePhotoUrl && (
+            <div className="w-full h-full rounded-full flex items-center justify-center text-purple-500 text-2xl">
+              💑
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-serif text-purple-800">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/90 py-3 rounded-lg italic">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-purple-700 text-lg font-medium bg-white/90 py-2 px-4 rounded-lg inline-block">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="bg-white/90 py-3 px-4 rounded-lg">
+        <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+        <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+        {weddingDetails.websiteUrl && (
+          <p className="text-purple-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 relative z-10">
+        <div className="bg-white/95 py-3 px-4 rounded-lg">
+          <p className="text-purple-700 font-medium">
+            Cher(e) {guest.name}
+          </p>
+          <p className="text-gray-700 text-sm mt-1">
+            Table {guest.tableNumber}
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+const WatercolorTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ 
+      minHeight: '600px',
+      backgroundImage: `url('/lovable-uploads/e858b4e3-374e-46d0-abe3-136af2598763.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 bg-purple-50/70 rounded-lg"></div>
+    
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-purple-700 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-purple-800 text-xl font-script tracking-wider mt-2 mb-4">
+        AQUARELLE
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+        <div 
+          className="w-full h-full rounded-full bg-cover bg-center bg-white"
+          style={{
+            backgroundImage: weddingDetails.couplePhotoUrl ? 
+              `url(${weddingDetails.couplePhotoUrl})` : 
+              'linear-gradient(135deg, #faf5ff 0%, #e9d5ff 100%)'
+          }}
+        >
+          {!weddingDetails.couplePhotoUrl && (
+            <div className="w-full h-full rounded-full flex items-center justify-center text-purple-500 text-2xl">
+              💑
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-script text-purple-800">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/90 py-3 rounded-lg italic">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-purple-700 text-lg font-medium bg-white/90 py-2 px-4 rounded-lg inline-block">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="bg-white/90 py-3 px-4 rounded-lg">
+        <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+        <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+        {weddingDetails.websiteUrl && (
+          <p className="text-purple-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 relative z-10">
+        <div className="bg-white/95 py-3 px-4 rounded-lg">
+          <p className="text-purple-700 font-medium">
+            Cher(e) {guest.name}
+          </p>
+          <p className="text-gray-700 text-sm mt-1">
+            Table {guest.tableNumber}
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+const PurpleRosesTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ 
+      minHeight: '600px',
+      backgroundImage: `url('/lovable-uploads/2ba8e4c3-2147-4f2b-b069-157b49b5b9f2.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 bg-white/60 rounded-lg"></div>
+    
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-purple-700 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-purple-800 text-xl font-serif tracking-wider mt-2 mb-4">
+        ROMANTIQUE
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+        <div 
+          className="w-full h-full rounded-full bg-cover bg-center bg-white"
+          style={{
+            backgroundImage: weddingDetails.couplePhotoUrl ? 
+              `url(${weddingDetails.couplePhotoUrl})` : 
+              'linear-gradient(135deg, #faf5ff 0%, #e9d5ff 100%)'
+          }}
+        >
+          {!weddingDetails.couplePhotoUrl && (
+            <div className="w-full h-full rounded-full flex items-center justify-center text-purple-500 text-2xl">
+              💑
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-serif text-purple-800">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/95 py-3 rounded-lg italic">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-purple-700 text-lg font-medium bg-white/95 py-2 px-4 rounded-lg inline-block">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="bg-white/95 py-3 px-4 rounded-lg">
+        <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+        <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+        {weddingDetails.websiteUrl && (
+          <p className="text-purple-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 relative z-10">
+        <div className="bg-white/98 py-3 px-4 rounded-lg">
+          <p className="text-purple-700 font-medium">
+            Cher(e) {guest.name}
+          </p>
+          <p className="text-gray-700 text-sm mt-1">
+            Table {guest.tableNumber}
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+const CoralTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ 
+      minHeight: '600px',
+      backgroundImage: `url('/lovable-uploads/d494526e-8bd3-47e9-a5ea-a98913da3999.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 bg-white/60 rounded-lg"></div>
+    
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-rose-700 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-rose-800 text-xl font-serif tracking-wider mt-2 mb-4">
+        CORAIL
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+        <div 
+          className="w-full h-full rounded-full bg-cover bg-center bg-white"
+          style={{
+            backgroundImage: weddingDetails.couplePhotoUrl ? 
+              `url(${weddingDetails.couplePhotoUrl})` : 
+              'linear-gradient(135deg, #fff1f2 0%, #fecaca 100%)'
+          }}
+        >
+          {!weddingDetails.couplePhotoUrl && (
+            <div className="w-full h-full rounded-full flex items-center justify-center text-rose-500 text-2xl">
+              💑
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-serif text-rose-800">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/95 py-3 rounded-lg italic">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-rose-700 text-lg font-medium bg-white/95 py-2 px-4 rounded-lg inline-block">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="bg-white/95 py-3 px-4 rounded-lg">
+        <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+        <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+        {weddingDetails.websiteUrl && (
+          <p className="text-rose-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 relative z-10">
+        <div className="bg-white/98 py-3 px-4 rounded-lg">
+          <p className="text-rose-700 font-medium">
+            Cher(e) {guest.name}
+          </p>
+          <p className="text-gray-700 text-sm mt-1">
+            Table {guest.tableNumber}
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+const GardenTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
+  <div 
+    id="wedding-invitation" 
+    className="relative p-8 rounded-lg shadow-2xl max-w-md mx-auto text-gray-800 overflow-hidden"
+    style={{ 
+      minHeight: '600px',
+      backgroundImage: `url('/lovable-uploads/7255aa1d-005f-41ce-ae76-77daa31448ba.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 bg-white/70 rounded-lg"></div>
+    
+    {/* Header */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-green-700 text-sm font-light tracking-wide">
+        Cérémonie à {weddingDetails.ceremonyTime}
+      </p>
+      <h1 className="text-green-800 text-xl font-serif tracking-wider mt-2 mb-4">
+        JARDIN SECRET
+      </h1>
+    </div>
+
+    {/* Couple Photo */}
+    <div className="flex justify-center mb-6 relative z-10">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 p-1 shadow-lg">
+        <div 
+          className="w-full h-full rounded-full bg-cover bg-center bg-white"
+          style={{
+            backgroundImage: weddingDetails.couplePhotoUrl ? 
+              `url(${weddingDetails.couplePhotoUrl})` : 
+              'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)'
+          }}
+        >
+          {!weddingDetails.couplePhotoUrl && (
+            <div className="w-full h-full rounded-full flex items-center justify-center text-green-500 text-2xl">
+              💑
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Couple Names */}
+    <div className="text-center mb-6 relative z-10">
+      <h2 className="text-3xl font-serif text-green-800">
+        {weddingDetails.groomName} & {weddingDetails.brideName}
+      </h2>
+    </div>
+
+    {/* Description */}
+    <div className="text-center mb-6 relative z-10">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/95 py-3 rounded-lg italic">
+        {weddingDetails.invitationText}
+      </p>
+    </div>
+
+    {/* Wedding Date */}
+    <div className="text-center mb-4 relative z-10">
+      <p className="text-green-700 text-lg font-medium bg-white/95 py-2 px-4 rounded-lg inline-block">
+        {weddingDetails.weddingDate}
+      </p>
+    </div>
+
+    {/* Venue */}
+    <div className="text-center mb-6 relative z-10">
+      <div className="bg-white/95 py-3 px-4 rounded-lg">
+        <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
+        <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
+        {weddingDetails.websiteUrl && (
+          <p className="text-green-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        )}
+      </div>
+    </div>
+
+    {/* Guest Info */}
+    {guest && (
+      <div className="text-center mt-8 relative z-10">
+        <div className="bg-white/98 py-3 px-4 rounded-lg">
+          <p className="text-green-700 font-medium">
+            Cher(e) {guest.name}
+          </p>
+          <p className="text-gray-700 text-sm mt-1">
+            Table {guest.tableNumber}
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
 const InvitationTemplates: React.FC<InvitationTemplatesProps> = ({
   template,
   guest,
@@ -433,6 +1343,26 @@ const InvitationTemplates: React.FC<InvitationTemplatesProps> = ({
       return <RomanticTemplate guest={guest} weddingDetails={weddingDetails} />;
     case 'modern':
       return <ModernTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'balloons':
+      return <BalloonsTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'celebration':
+      return <CelebrationTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'floral':
+      return <FloralTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'botanical':
+      return <BotanicalTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'oval':
+      return <OvalTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'purple':
+      return <PurpleTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'watercolor':
+      return <WatercolorTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'purple-roses':
+      return <PurpleRosesTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'coral':
+      return <CoralTemplate guest={guest} weddingDetails={weddingDetails} />;
+    case 'garden':
+      return <GardenTemplate guest={guest} weddingDetails={weddingDetails} />;
     default:
       return <WinterTemplate guest={guest} weddingDetails={weddingDetails} />;
   }
