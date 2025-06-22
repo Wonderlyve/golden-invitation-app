@@ -18,11 +18,13 @@ const ShareButton: React.FC<ShareButtonProps> = ({ guest }) => {
     setIsSharing(true);
     
     try {
+      console.log('Sharing invitation for:', guest.name, 'Table:', guest.tableNumber);
+      
       await shareToWhatsApp(guest.name, guest.tableNumber);
       
       toast({
-        title: "Invitation partagée",
-        description: `Le lien d'invitation pour ${guest.name} a été préparé pour WhatsApp`,
+        title: "Invitation prête à partager",
+        description: `Le lien d'invitation pour ${guest.name} a été ouvert dans WhatsApp`,
       });
     } catch (error) {
       console.error('Erreur lors du partage:', error);

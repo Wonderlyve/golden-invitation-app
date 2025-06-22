@@ -38,9 +38,28 @@ export const shareToWhatsApp = async (guestName: string, tableNumber: string, im
   const currentDomain = window.location.origin;
   const invitationLink = `${currentDomain}/invitation?name=${encodeURIComponent(guestName)}&table=${encodeURIComponent(tableNumber)}`;
   
-  const message = `🎉 Invitation de mariage - ${guestName}%0A%0A✨ Vous êtes invité(e) au mariage de Jack & Sofia%0A📅 22 octobre à 10h%0A📍 Sheraton Kauai Resort, Hawaii%0A🪑 Table ${tableNumber}%0A%0A🔗 Cliquez ici pour voir et télécharger votre invitation:%0A${encodeURIComponent(invitationLink)}%0A%0ANous avons hâte de célébrer avec vous ! 💕`;
+  // Create a more direct and clickable message for WhatsApp
+  const message = `🎉 *Invitation de mariage*
+
+✨ Bonjour ${guestName} !
+
+Vous êtes officiellement invité(e) au mariage de Jack & Sofia
+
+📅 *22 octobre à 10h*
+📍 *Sheraton Kauai Resort, Hawaii*
+🪑 *Table ${tableNumber}*
+
+👆 *Cliquez sur ce lien pour voir et télécharger votre invitation personnalisée :*
+${invitationLink}
+
+Nous avons hâte de célébrer avec vous ! 💕`;
   
-  const whatsappUrl = `https://wa.me/?text=${message}`;
+  // Encode the message for WhatsApp URL
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+  
+  console.log('Generated invitation link:', invitationLink);
+  console.log('WhatsApp message:', message);
   
   if (imageBlob && navigator.share && navigator.canShare) {
     try {
@@ -62,6 +81,6 @@ export const shareToWhatsApp = async (guestName: string, tableNumber: string, im
     }
   }
   
-  // Fallback to WhatsApp URL
+  // Fallback to WhatsApp URL - this will work on all devices
   window.open(whatsappUrl, '_blank');
 };

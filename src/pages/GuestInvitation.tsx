@@ -19,6 +19,15 @@ const GuestInvitation = () => {
   const guestName = searchParams.get('name') || 'Invité';
   const tableNumber = searchParams.get('table') || '1';
 
+  // Log the parameters for debugging
+  useEffect(() => {
+    console.log('Guest invitation page loaded with params:', {
+      name: guestName,
+      table: tableNumber,
+      url: window.location.href
+    });
+  }, [guestName, tableNumber]);
+
   const guest = {
     id: 'guest-invitation',
     name: guestName,
@@ -31,6 +40,8 @@ const GuestInvitation = () => {
     setIsDownloading(true);
     
     try {
+      console.log('Starting download for guest:', guestName);
+      
       const imageBlob = await generateInvitationImage('guest-invitation-download');
       
       if (imageBlob) {
