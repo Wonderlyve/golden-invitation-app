@@ -25,7 +25,7 @@ export const generateInvitationImage = async (elementId: string): Promise<Blob |
     return new Promise((resolve) => {
       canvas.toBlob((blob) => {
         resolve(blob);
-      }, 'image/png', 1.0); // Maximum quality
+      }, 'image/jpeg', 1.0); // Changed to JPEG format with maximum quality
     });
   } catch (error) {
     console.error('Error generating image:', error);
@@ -34,21 +34,25 @@ export const generateInvitationImage = async (elementId: string): Promise<Blob |
 };
 
 export const shareToWhatsApp = async (guestName: string, tableNumber: string, imageBlob?: Blob) => {
-  const message = `🎉 Invitation de mariage - ${guestName}%0A%0A✨ Vous êtes invité(e) au mariage de Jack & Sofia%0A📅 22 octobre à 10h%0A📍 Sheraton Kauai Resort, Hawaii%0A🪑 Table ${tableNumber}%0A%0ANous avons hâte de célébrer avec vous ! 💕`;
+  // Get current domain for the invitation link
+  const currentDomain = window.location.origin;
+  const invitationLink = `${currentDomain}/invitation?name=${encodeURIComponent(guestName)}&table=${encodeURIComponent(tableNumber)}`;
+  
+  const message = `🎉 Invitation de mariage - ${guestName}%0A%0A✨ Vous êtes invité(e) au mariage de Jack & Sofia%0A📅 22 octobre à 10h%0A📍 Sheraton Kauai Resort, Hawaii%0A🪑 Table ${tableNumber}%0A%0A🔗 Cliquez ici pour voir et télécharger votre invitation:%0A${encodeURIComponent(invitationLink)}%0A%0ANous avons hâte de célébrer avec vous ! 💕`;
   
   const whatsappUrl = `https://wa.me/?text=${message}`;
   
   if (imageBlob && navigator.share && navigator.canShare) {
     try {
-      const file = new File([imageBlob], `invitation-${guestName.replace(/\s+/g, '-')}.png`, { 
-        type: 'image/png' 
+      const file = new File([imageBlob], `invitation-${guestName.replace(/\s+/g, '-')}.jpeg`, { 
+        type: 'image/jpeg' 
       });
       
       // Check if we can share files
       if (navigator.canShare({ files: [file] })) {
         await navigator.share({
           title: 'Invitation de mariage',
-          text: `Invitation pour ${guestName} - Table ${tableNumber}`,
+          text: `Invitation pour ${guestName} - Table ${tableNumber}\n\n${invitationLink}`,
           files: [file]
         });
         return;
