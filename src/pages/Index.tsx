@@ -9,6 +9,7 @@ import { useWeddingDetails } from '@/hooks/useWeddingDetails';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ArrowLeft, Users, Eye } from 'lucide-react';
+import { InvitationTemplate } from '@/types/template';
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<'guests' | 'preview'>('guests');
@@ -20,7 +21,7 @@ const Index = () => {
     setCurrentView('preview');
   };
 
-  const handleTemplateChange = (template: 'winter' | 'elegant' | 'romantic' | 'modern' | 'balloons' | 'celebration' | 'floral' | 'botanical' | 'oval' | 'purple' | 'watercolor' | 'purple-roses' | 'coral' | 'garden') => {
+  const handleTemplateChange = (template: InvitationTemplate) => {
     updateWeddingDetails({
       ...weddingDetails,
       template

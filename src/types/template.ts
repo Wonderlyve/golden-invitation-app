@@ -1,5 +1,5 @@
 
-export type InvitationTemplate = 'winter' | 'elegant' | 'romantic' | 'modern' | 'balloons' | 'celebration' | 'floral' | 'botanical' | 'oval' | 'purple' | 'watercolor' | 'purple-roses' | 'coral' | 'garden';
+export type InvitationTemplate = 'winter' | 'elegant' | 'romantic' | 'modern' | 'balloons' | 'celebration' | 'floral' | 'botanical' | 'oval' | 'purple' | 'watercolor' | 'purple-roses' | 'coral' | 'garden' | 'minimal-beige' | 'golden-hexagon' | 'eucalyptus' | 'golden-frame' | 'illustrated' | 'anniversary' | 'navy-gold' | 'luxury-navy';
 
 export interface TemplateConfig {
   id: InvitationTemplate;
@@ -92,5 +92,53 @@ export const TEMPLATES: TemplateConfig[] = [
     name: 'Jardin Secret',
     description: 'Cadre fleuri romantique',
     preview: '🏡'
+  },
+  {
+    id: 'minimal-beige',
+    name: 'Beige Minimal',
+    description: 'Élégance beige et délicat',
+    preview: '🤎'
+  },
+  {
+    id: 'golden-hexagon',
+    name: 'Hexagone Doré',
+    description: 'Design géométrique doré',
+    preview: '⬡'
+  },
+  {
+    id: 'eucalyptus',
+    name: 'Eucalyptus',
+    description: 'Feuillage eucalyptus naturel',
+    preview: '🍃'
+  },
+  {
+    id: 'golden-frame',
+    name: 'Cadre Doré',
+    description: 'Cadre doré avec confettis',
+    preview: '🥇'
+  },
+  {
+    id: 'illustrated',
+    name: 'Illustré',
+    description: 'Style illustration romantique',
+    preview: '🎭'
+  },
+  {
+    id: 'anniversary',
+    name: 'Anniversaire',
+    description: 'Design pour anniversaire',
+    preview: '💒'
+  },
+  {
+    id: 'navy-gold',
+    name: 'Marine Doré',
+    description: 'Élégance marine et or',
+    preview: '⚓'
+  },
+  {
+    id: 'luxury-navy',
+    name: 'Luxe Marine',
+    description: 'Luxe marine et doré',
+    preview: '👑'
   }
 ];
