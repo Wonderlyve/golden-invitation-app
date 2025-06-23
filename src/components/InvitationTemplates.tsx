@@ -1,12 +1,12 @@
 import React from 'react';
 import { Guest, WeddingDetails } from '@/types/guest';
 import { InvitationTemplate } from '@/types/template';
+import BlueEucalyptusTemplate from './templates/BlueEucalyptusTemplate';
 
 interface InvitationTemplatesProps {
   template: InvitationTemplate;
-  guest: Guest | null;
+  guest: Guest;
   weddingDetails: WeddingDetails;
-  isPreview?: boolean;
 }
 
 const WinterTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingDetails }> = ({ guest, weddingDetails }) => (
@@ -742,7 +742,7 @@ const BotanicalTemplate: React.FC<{ guest: Guest | null; weddingDetails: Wedding
 
     {/* Description */}
     <div className="text-center mb-6 relative z-10">
-      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/90 py-3 rounded-lg">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 bg-white/90 py-3 rounded-lg italic">
         {weddingDetails.invitationText}
       </p>
     </div>
@@ -1393,9 +1393,9 @@ const MinimalBeigeTemplate: React.FC<{ guest: Guest | null; weddingDetails: Wedd
       </div>
     </div>
 
-    {/* Wedding Date */}
+    {/* Wedding Date and Time */}
     <div className="text-center mb-6 relative z-10">
-      <p className="text-amber-800 text-lg font-serif tracking-wide">
+      <p className="text-amber-800 text-sm font-semibold tracking-wide">
         {weddingDetails.weddingDate}
       </p>
       <p className="text-amber-700 text-sm mt-1">
@@ -1505,9 +1505,9 @@ const GoldenHexagonTemplate: React.FC<{ guest: Guest | null; weddingDetails: Wed
       </p>
     </div>
 
-    {/* Wedding Date */}
+    {/* Wedding Date and Time */}
     <div className="text-center mb-6 relative z-10">
-      <p className="text-yellow-800 text-xl font-serif tracking-wide">
+      <p className="text-yellow-800 text-lg font-serif tracking-wide">
         {weddingDetails.weddingDate}
       </p>
       <p className="text-yellow-700 text-sm mt-1">
@@ -1576,14 +1576,11 @@ const EucalyptusTemplate: React.FC<{ guest: Guest | null; weddingDetails: Weddin
       <p className="text-green-700 text-sm font-light tracking-wide">
         Together with their families
       </p>
-      <h1 className="text-gray-800 text-lg font-light tracking-wide mt-2">
-        invite you to their wedding celebration
-      </h1>
     </div>
 
     {/* Couple Names */}
     <div className="text-center mb-8 relative z-10">
-      <h2 className="text-3xl font-script text-gray-800">
+      <h2 className="text-3xl font-serif text-green-800">
         {weddingDetails.groomName} & {weddingDetails.brideName}
       </h2>
     </div>
@@ -1617,7 +1614,7 @@ const EucalyptusTemplate: React.FC<{ guest: Guest | null; weddingDetails: Weddin
     <div className="text-center mb-6 relative z-10">
       <div className="border-t border-b border-gray-300 py-3">
         <p className="text-gray-800 text-sm font-semibold tracking-wide">
-          {weddingDetails.weddingDate.toUpperCase()}
+          {weddingDetails.weddingDate}
         </p>
         <p className="text-gray-600 text-sm">{weddingDetails.ceremonyTime}</p>
       </div>
@@ -1625,17 +1622,17 @@ const EucalyptusTemplate: React.FC<{ guest: Guest | null; weddingDetails: Weddin
 
     {/* Description */}
     <div className="text-center mb-6 relative z-10">
-      <p className="text-gray-600 text-sm leading-relaxed px-4 italic">
+      <p className="text-gray-700 text-sm leading-relaxed px-4 italic">
         {weddingDetails.invitationText}
       </p>
     </div>
 
     {/* Venue */}
     <div className="text-center mb-6 relative z-10">
-      <p className="text-gray-800 font-medium text-sm">{weddingDetails.venue}</p>
+      <p className="text-gray-800 font-medium">{weddingDetails.venue}</p>
       <p className="text-gray-600 text-sm">{weddingDetails.venueLocation}</p>
       {weddingDetails.websiteUrl && (
-        <p className="text-green-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
+        <p className="text-gray-600 text-sm mt-2">{weddingDetails.websiteUrl}</p>
       )}
     </div>
 
@@ -2031,11 +2028,11 @@ const NavyGoldTemplate: React.FC<{ guest: Guest | null; weddingDetails: WeddingD
 
     {/* Couple Names */}
     <div className="text-center mb-8 relative z-10">
-      <h2 className="text-3xl font-script text-yellow-400">
+      <h2 className="text-3xl font-serif text-yellow-400">
         {weddingDetails.groomName}
       </h2>
       <p className="text-white text-lg my-2">AND</p>
-      <h2 className="text-3xl font-script text-yellow-400">
+      <h2 className="text-3xl font-serif text-yellow-400">
         {weddingDetails.brideName}
       </h2>
       <div className="w-16 border-t border-yellow-400 mx-auto mt-4"></div>
@@ -2233,57 +2230,66 @@ const LuxuryNavyTemplate: React.FC<{ guest: Guest | null; weddingDetails: Weddin
 const InvitationTemplates: React.FC<InvitationTemplatesProps> = ({
   template,
   guest,
-  weddingDetails,
-  isPreview = false
+  weddingDetails
 }) => {
-  switch (template) {
-    case 'winter':
-      return <WinterTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'elegant':
-      return <ElegantTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'romantic':
-      return <RomanticTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'modern':
-      return <ModernTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'balloons':
-      return <BalloonsTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'celebration':
-      return <CelebrationTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'floral':
-      return <FloralTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'botanical':
-      return <BotanicalTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'oval':
-      return <OvalTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'purple':
-      return <PurpleTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'watercolor':
-      return <WatercolorTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'purple-roses':
-      return <PurpleRosesTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'coral':
-      return <CoralTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'garden':
-      return <GardenTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'minimal-beige':
-      return <MinimalBeigeTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'golden-hexagon':
-      return <GoldenHexagonTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'eucalyptus':
-      return <EucalyptusTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'golden-frame':
-      return <GoldenFrameTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'illustrated':
-      return <IllustratedTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'anniversary':
-      return <AnniversaryTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'navy-gold':
-      return <NavyGoldTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'luxury-navy':
-      return <LuxuryNavyTemplate guest={guest} weddingDetails={weddingDetails} />;
-    default:
-      return <WinterTemplate guest={guest} weddingDetails={weddingDetails} />;
-  }
+  const renderTemplate = () => {
+    switch (template) {
+      case 'winter':
+        return <WinterTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'elegant':
+        return <ElegantTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'romantic':
+        return <RomanticTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'modern':
+        return <ModernTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'balloons':
+        return <BalloonsTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'celebration':
+        return <CelebrationTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'floral':
+        return <FloralTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'botanical':
+        return <BotanicalTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'oval':
+        return <OvalTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'purple':
+        return <PurpleTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'watercolor':
+        return <WatercolorTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'purple-roses':
+        return <PurpleRosesTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'coral':
+        return <CoralTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'garden':
+        return <GardenTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'minimal-beige':
+        return <MinimalBeigeTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'golden-hexagon':
+        return <GoldenHexagonTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'eucalyptus':
+        return <EucalyptusTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'golden-frame':
+        return <GoldenFrameTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'illustrated':
+        return <IllustratedTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'anniversary':
+        return <AnniversaryTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'navy-gold':
+        return <NavyGoldTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'luxury-navy':
+        return <LuxuryNavyTemplate guest={guest} weddingDetails={weddingDetails} />;
+      case 'blue-eucalyptus':
+        return <BlueEucalyptusTemplate guest={guest} weddingDetails={weddingDetails} />;
+      default:
+        return <WinterTemplate guest={guest} weddingDetails={weddingDetails} />;
+    }
+  };
+
+  return (
+    <div id="invitation-template" className="flex items-center justify-center bg-white">
+      {renderTemplate()}
+    </div>
+  );
 };
 
 export default InvitationTemplates;
