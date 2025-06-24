@@ -1,64 +1,31 @@
 
-import React, { useState } from 'react';
-import { Share2, MessageCircle } from 'lucide-react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Share2 } from 'lucide-react';
 import { Guest } from '@/types/guest';
-import { shareToWhatsApp, generateInvitationImage } from '@/utils/shareUtils';
-import { useToast } from '@/hooks/use-toast';
+import { shareInvitation } from '@/utils/shareUtils';
 
 interface ShareButtonProps {
   guest: Guest;
+  onComplete?: () => void;
 }
 
-const ShareButton: React.FC<ShareButtonProps> = ({ guest }) => {
-  const [isSharing, setIsSharing] = useState(false);
-  const { toast } = useToast();
-
-  const handleShare = async () => {
-    setIsSharing(true);
-    
-    try {
-      console.log('Sharing invitation for:', guest.name, 'Table:', guest.tableNumber);
-      
-      // Generate the invitation image with current state
-      const imageBlob = await generateInvitationImage('invitation-container');
-      
-      await shareToWhatsApp(guest.name, guest.tableNumber, imageBlob);
-      
-      toast({
-        title: "Invitation prête à partager",
-        description: `L'invitation pour ${guest.name} a été générée et partagée`,
-      });
-    } catch (error) {
-      console.error('Erreur lors du partage:', error);
-      toast({
-        title: "Erreur",
-        description: "Impossible de partager l'invitation. Veuillez réessayer.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSharing(false);
-    }
+const ShareButton: React.FC<ShareButtonProps> = ({ guest, onComplete }) => {
+  const handleShare = () => {
+    shareInvitation(guest);
+    onComplete?.();
   };
 
   return (
     <Button
       onClick={handleShare}
-      disabled={isSharing}
-      className="w-full bg-green-600 hover:bg-green-700 text-white flex items-center justify-center gap-2 text-xs"
-      size="sm"
+      className="w-full flex items-center gap-3 bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-500 hover:to-emerald-500 text-white p-4 h-auto"
     >
-      {isSharing ? (
-        <>
-          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-          Génération...
-        </>
-      ) : (
-        <>
-          <MessageCircle className="w-4 h-4" />
-          WhatsApp
-        </>
-      )}
+      <Share2 className="w-5 h-5" />
+      <div className="text-left">
+        <div className="font-medium">Partager sur WhatsApp</div>
+        <div className="text-sm opacity-90">Envoyer l'invitation personnalisée</div>
+      </div>
     </Button>
   );
 };
