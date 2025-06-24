@@ -11,21 +11,21 @@ export const generateInvitationImage = async (elementId: string): Promise<Blob |
     
     const canvas = await html2canvas(element, {
       backgroundColor: '#0f172a',
-      scale: 3, // Increased scale for better resolution
+      scale: 1, // Set to 1 to maintain exact pixel dimensions
       useCORS: true,
       allowTaint: true,
-      width: element.offsetWidth,
-      height: element.offsetHeight,
+      width: 2310, // Fixed width
+      height: 1080, // Fixed height
       scrollX: 0,
       scrollY: 0,
-      windowWidth: element.offsetWidth,
-      windowHeight: element.offsetHeight
+      windowWidth: 2310,
+      windowHeight: 1080
     });
     
     return new Promise((resolve) => {
       canvas.toBlob((blob) => {
         resolve(blob);
-      }, 'image/jpeg', 1.0); // Changed to JPEG format with maximum quality
+      }, 'image/jpeg', 1.0); // JPEG format with maximum quality
     });
   } catch (error) {
     console.error('Error generating image:', error);
