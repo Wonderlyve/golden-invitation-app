@@ -35,6 +35,13 @@ export const useGuests = () => {
     saveToStorage(updatedGuests);
   };
 
+  const updateGuest = (id: string, name: string, tableNumber: string) => {
+    const updatedGuests = guests.map(guest => 
+      guest.id === id ? { ...guest, name, tableNumber } : guest
+    );
+    saveToStorage(updatedGuests);
+  };
+
   const deleteGuest = (id: string) => {
     const updatedGuests = guests.filter(guest => guest.id !== id);
     saveToStorage(updatedGuests);
@@ -50,6 +57,7 @@ export const useGuests = () => {
   return {
     guests,
     addGuest,
+    updateGuest,
     deleteGuest,
     verifyGuest
   };

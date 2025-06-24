@@ -6,18 +6,26 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { useGuests } from '@/hooks/useGuests';
 import ShareButton from './ShareButton';
+import EditGuestDialog from './EditGuestDialog';
+import GuestLimitDialog from './GuestLimitDialog';
 
 interface GuestListProps {
   onSelectGuest: (guest: any) => void;
 }
 
 const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
-  const { guests, addGuest, deleteGuest, verifyGuest } = useGuests();
+  const { guests, addGuest, updateGuest, deleteGuest, verifyGuest } = useGuests();
   const [newGuestName, setNewGuestName] = useState('');
   const [newGuestTable, setNewGuestTable] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showLimitDialog, setShowLimitDialog] = useState(false);
 
   const handleAddGuest = () => {
+    if (guests.length >= 5) {
+      setShowLimitDialog(true);
+      return;
+    }
+
     if (newGuestName.trim() && newGuestTable.trim()) {
       addGuest(newGuestName.trim(), newGuestTable.trim());
       setNewGuestName('');
@@ -40,8 +48,8 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
       </div>
 
       {showAddForm && (
-        <Card className="p-4 bg-white/10 backdrop-blur-sm border-white/20">
-          <div className="space-y-3">
+        <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+          <div className="p-4 space-y-3">
             <Input
               placeholder="Nom de l'invité"
               value={newGuestName}
@@ -74,9 +82,9 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
         {guests.map((guest) => (
           <Card 
             key={guest.id} 
-            className="p-3 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-200"
+            className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-200"
           >
-            <div className="space-y-3">
+            <div className="p-3 space-y-3">
               {/* Guest info row */}
               <div className="flex items-center gap-3">
                 <button
@@ -96,18 +104,19 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
               </div>
               
               {/* Action buttons row */}
-              <div className="flex gap-2">
+              <div className="grid grid-cols-4 gap-1">
                 <Button
                   onClick={() => onSelectGuest(guest)}
                   variant="outline"
                   size="sm"
-                  className="flex-1 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-slate-900 text-xs"
+                  className="border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-slate-900 text-xs px-2"
                 >
                   Aperçu
                 </Button>
-                <div className="flex-1">
+                <div className="col-span-1">
                   <ShareButton guest={guest} />
                 </div>
+                <EditGuestDialog guest={guest} onUpdate={updateGuest} />
                 <Button
                   onClick={() => deleteGuest(guest.id)}
                   variant="outline"
@@ -128,6 +137,11 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
           <p className="text-sm text-gray-500 mt-2">Cliquez sur "Ajouter" pour commencer</p>
         </div>
       )}
+
+      <GuestLimitDialog 
+        open={showLimitDialog} 
+        onOpenChange={setShowLimitDialog} 
+      />
     </div>
   );
 };
