@@ -1,4 +1,4 @@
-export type InvitationTemplate = 'winter' | 'elegant' | 'romantic' | 'modern' | 'balloons' | 'celebration' | 'floral' | 'botanical' | 'oval' | 'purple' | 'watercolor' | 'purple-roses' | 'coral' | 'garden' | 'minimal-beige' | 'golden-hexagon' | 'eucalyptus' | 'golden-frame' | 'illustrated' | 'anniversary' | 'navy-gold' | 'luxury-navy' | 'pink-elegant' | 'africa-day' | 'photo-circle' | 'photo-heart' | 'photo-hexagon' | 'photo-diamond' | 'photo-oval';
+export type InvitationTemplate = 'winter' | 'elegant' | 'romantic' | 'modern' | 'balloons' | 'celebration' | 'floral' | 'botanical' | 'oval' | 'purple' | 'watercolor' | 'purple-roses' | 'coral' | 'garden' | 'minimal-beige' | 'golden-hexagon' | 'eucalyptus' | 'golden-frame' | 'illustrated' | 'anniversary' | 'navy-gold' | 'luxury-navy' | 'pink-elegant';
 
 export interface TemplateConfig {
   id: InvitationTemplate;
@@ -145,41 +145,5 @@ export const TEMPLATES: TemplateConfig[] = [
     name: 'Rose Élégant',
     description: 'Design rose élégant avec cercle central',
     preview: '🌸'
-  },
-  {
-    id: 'africa-day',
-    name: 'Africa Day',
-    description: 'Template festif inspiré de l\'Afrique',
-    preview: '🌍'
-  },
-  {
-    id: 'photo-circle',
-    name: 'Photo Cercle',
-    description: 'Grande zone photo circulaire',
-    preview: '⭕'
-  },
-  {
-    id: 'photo-heart',
-    name: 'Photo Cœur',
-    description: 'Zone photo en forme de cœur',
-    preview: '💖'
-  },
-  {
-    id: 'photo-hexagon',
-    name: 'Photo Hexagone',
-    description: 'Zone photo hexagonale moderne',
-    preview: '⬡'
-  },
-  {
-    id: 'photo-diamond',
-    name: 'Photo Diamant',
-    description: 'Zone photo en forme de diamant',
-    preview: '💎'
-  },
-  {
-    id: 'photo-oval',
-    name: 'Photo Ovale',
-    description: 'Grande zone photo ovale élégante',
-    preview: '🥚'
   }
 ];
