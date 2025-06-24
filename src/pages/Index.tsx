@@ -29,75 +29,51 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
-      {/* Header */}
-      <div className="bg-white/10 backdrop-blur-sm border-b border-white/20">
-        <div className="max-w-md mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            {currentView === 'preview' ? (
-              <Button
-                onClick={() => setCurrentView('guests')}
-                variant="ghost"
-                className="text-white hover:bg-white/20"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Retour
-              </Button>
-            ) : (
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                  💑
+    <div className="min-h-screen">
+      {currentView === 'preview' && (
+        // Header pour la prévisualisation avec fond dégradé
+        <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+          <div className="bg-white/10 backdrop-blur-sm border-b border-white/20">
+            <div className="max-w-md mx-auto px-4 py-4">
+              <div className="flex items-center justify-between">
+                <Button
+                  onClick={() => setCurrentView('guests')}
+                  variant="ghost"
+                  className="text-white hover:bg-white/20"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Retour
+                </Button>
+                
+                <div className="flex gap-2">
+                  <TemplateSelector
+                    currentTemplate={weddingDetails.template}
+                    onTemplateChange={handleTemplateChange}
+                  />
+                  <EditWeddingDialog 
+                    weddingDetails={weddingDetails}
+                    onUpdate={updateWeddingDetails}
+                  />
                 </div>
-                <h1 className="text-lg font-bold text-white">
-                  {weddingDetails.groomName} & {weddingDetails.brideName}
-                </h1>
               </div>
-            )}
-            
-            <div className="flex gap-2">
-              <TemplateSelector
-                currentTemplate={weddingDetails.template}
-                onTemplateChange={handleTemplateChange}
-              />
-              <EditWeddingDialog 
-                weddingDetails={weddingDetails}
-                onUpdate={updateWeddingDetails}
-              />
-              <Button
-                onClick={() => setCurrentView('guests')}
-                variant={currentView === 'guests' ? 'default' : 'ghost'}
-                size="sm"
-                className={currentView === 'guests' ? 'bg-yellow-400 text-slate-900' : 'text-white hover:bg-white/20'}
-              >
-                <Users className="w-4 h-4" />
-              </Button>
-              <Button
-                onClick={() => setCurrentView('preview')}
-                variant={currentView === 'preview' ? 'default' : 'ghost'}
-                size="sm"
-                className={currentView === 'preview' ? 'bg-yellow-400 text-slate-900' : 'text-white hover:bg-white/20'}
-                disabled={!selectedGuest && currentView !== 'preview'}
-              >
-                <Eye className="w-4 h-4" />
-              </Button>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Content */}
-      <div className="max-w-md mx-auto px-4 py-6">
+      <div className={currentView === 'preview' ? "max-w-md mx-auto px-4 py-6" : ""}>
         {currentView === 'guests' ? (
           <GuestList onSelectGuest={handleSelectGuest} />
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-6 bg-white min-h-screen">
             {selectedGuest && (
-              <Card className="p-4 bg-white/10 backdrop-blur-sm border-white/20">
+              <Card className="p-4 border-gray-200 shadow-sm">
                 <div className="text-center">
-                  <h3 className="text-lg font-semibold text-white mb-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
                     Aperçu pour {selectedGuest.name}
                   </h3>
-                  <p className="text-sm text-gray-300">Table {selectedGuest.tableNumber}</p>
+                  <p className="text-sm text-gray-600">Table {selectedGuest.tableNumber}</p>
                 </div>
               </Card>
             )}
@@ -111,11 +87,13 @@ const Index = () => {
         )}
       </div>
 
-      {/* Footer */}
-      <div className="text-center py-4 text-gray-400 text-xs">
-        <p>Application d'invitations de mariage</p>
-        <p className="mt-1">Stockage local • Prêt pour Supabase</p>
-      </div>
+      {currentView === 'guests' && (
+        // Footer seulement sur l'écran de liste
+        <div className="text-center py-4 text-gray-500 text-xs bg-white">
+          <p>Application d'invitations de mariage</p>
+          <p className="mt-1">Stockage local • Version démo limitée à 5 invités</p>
+        </div>
+      )}
     </div>
   );
 };
