@@ -1,102 +1,48 @@
 
 import html2canvas from 'html2canvas';
+import { saveAs } from 'file-saver';
 
-export const generateInvitationImage = async (elementId: string): Promise<Blob | null> => {
+export const generateInvitationImage = async (elementId: string): Promise<Blob> => {
   const element = document.getElementById(elementId);
-  if (!element) return null;
-
-  try {
-    // Wait a bit for any animations or layout changes to complete
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Force the element to have the exact dimensions we want
-    const originalWidth = element.style.width;
-    const originalHeight = element.style.height;
-    
-    // Set fixed dimensions to match the reference template
-    element.style.width = '350px';
-    element.style.height = '700px';
-    
-    const canvas = await html2canvas(element, {
-      backgroundColor: null,
-      scale: 2, // High resolution
-      useCORS: true,
-      allowTaint: true,
-      width: 350,
-      height: 700,
-      scrollX: 0,
-      scrollY: 0,
-      windowWidth: 350,
-      windowHeight: 700,
-      ignoreElements: (element) => {
-        // Ignore any elements that might interfere with the capture
-        return element.classList.contains('ignore-capture');
-      }
-    });
-    
-    // Restore original dimensions
-    element.style.width = originalWidth;
-    element.style.height = originalHeight;
-    
-    return new Promise((resolve) => {
-      canvas.toBlob((blob) => {
-        resolve(blob);
-      }, 'image/jpeg', 1.0);
-    });
-  } catch (error) {
-    console.error('Error generating image:', error);
-    return null;
+  if (!element) {
+    throw new Error('Élément d\'invitation introuvable');
   }
+
+  console.log('Génération de l\'image pour l\'élément:', elementId);
+  
+  const canvas = await html2canvas(element, {
+    backgroundColor: null,
+    scale: 2,
+    useCORS: true,
+    allowTaint: true,
+    width: 350,
+    height: 700,
+    scrollX: 0,
+    scrollY: 0,
+    windowWidth: 350,
+    windowHeight: 700
+  });
+
+  return new Promise((resolve) => {
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      } else {
+        throw new Error('Impossible de générer l\'image');
+      }
+    }, 'image/jpeg', 0.95);
+  });
 };
 
-export const shareToWhatsApp = async (guestName: string, tableNumber: string, imageBlob?: Blob) => {
-  // Get current domain for the invitation link
-  const currentDomain = window.location.origin;
-  const invitationLink = `${currentDomain}/invitation?name=${encodeURIComponent(guestName)}&table=${encodeURIComponent(tableNumber)}`;
+export const shareToWhatsApp = async (guestName: string, tableNumber: number, imageBlob?: Blob) => {
+  const message = `🎉 Voici votre invitation de mariage personnalisée!\n\nInvité: ${guestName}\nTable: ${tableNumber}\n\nNous avons hâte de célébrer avec vous! 💕`;
   
-  // Create a more direct and clickable message for WhatsApp
-  const message = `🎉 *Invitation de mariage*
-
-✨ Bonjour ${guestName} !
-
-Vous êtes officiellement invité(e) au mariage de Jack & Sofia
-
-📅 *22 octobre à 10h*
-📍 *Sheraton Kauai Resort, Hawaii*
-🪑 *Table ${tableNumber}*
-
-👆 *Cliquez sur ce lien pour voir et télécharger votre invitation personnalisée :*
-${invitationLink}
-
-Nous avons hâte de célébrer avec vous ! 💕`;
-  
-  // Encode the message for WhatsApp URL
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
-  
-  console.log('Generated invitation link:', invitationLink);
-  console.log('WhatsApp message:', message);
-  
-  if (imageBlob && navigator.share && navigator.canShare) {
-    try {
-      const file = new File([imageBlob], `invitation-${guestName.replace(/\s+/g, '-')}.jpeg`, { 
-        type: 'image/jpeg' 
-      });
-      
-      // Check if we can share files
-      if (navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          title: 'Invitation de mariage',
-          text: `Invitation pour ${guestName} - Table ${tableNumber}\n\n${invitationLink}`,
-          files: [file]
-        });
-        return;
-      }
-    } catch (error) {
-      console.log('Native sharing failed, falling back to WhatsApp URL');
-    }
+  if (imageBlob) {
+    // Save image for user to manually share
+    saveAs(imageBlob, `invitation-${guestName.replace(/\s+/g, '-').toLowerCase()}.jpg`);
   }
   
-  // Fallback to WhatsApp URL - this will work on all devices
+  // Open WhatsApp with message
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
   window.open(whatsappUrl, '_blank');
 };
