@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Share2, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Guest } from '@/types/guest';
-import { shareToWhatsApp } from '@/utils/shareUtils';
+import { shareToWhatsApp, generateInvitationImage } from '@/utils/shareUtils';
 import { useToast } from '@/hooks/use-toast';
 
 interface ShareButtonProps {
@@ -20,11 +20,14 @@ const ShareButton: React.FC<ShareButtonProps> = ({ guest }) => {
     try {
       console.log('Sharing invitation for:', guest.name, 'Table:', guest.tableNumber);
       
-      await shareToWhatsApp(guest.name, guest.tableNumber);
+      // Generate the invitation image with current state
+      const imageBlob = await generateInvitationImage('invitation-container');
+      
+      await shareToWhatsApp(guest.name, guest.tableNumber, imageBlob);
       
       toast({
         title: "Invitation prête à partager",
-        description: `Le lien d'invitation pour ${guest.name} a été ouvert dans WhatsApp`,
+        description: `L'invitation pour ${guest.name} a été générée et partagée`,
       });
     } catch (error) {
       console.error('Erreur lors du partage:', error);
@@ -48,7 +51,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ guest }) => {
       {isSharing ? (
         <>
           <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-          Partage...
+          Génération...
         </>
       ) : (
         <>

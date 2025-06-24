@@ -7,25 +7,41 @@ export const generateInvitationImage = async (elementId: string): Promise<Blob |
 
   try {
     // Wait a bit for any animations or layout changes to complete
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Force the element to have the exact dimensions we want
+    const originalWidth = element.style.width;
+    const originalHeight = element.style.height;
+    
+    // Set fixed dimensions to match the reference template
+    element.style.width = '350px';
+    element.style.height = '700px';
     
     const canvas = await html2canvas(element, {
-      backgroundColor: '#0f172a',
-      scale: 3, // Increased scale for better resolution
+      backgroundColor: null,
+      scale: 2, // High resolution
       useCORS: true,
       allowTaint: true,
-      width: element.offsetWidth,
-      height: element.offsetHeight,
+      width: 350,
+      height: 700,
       scrollX: 0,
       scrollY: 0,
-      windowWidth: element.offsetWidth,
-      windowHeight: element.offsetHeight
+      windowWidth: 350,
+      windowHeight: 700,
+      ignoreElements: (element) => {
+        // Ignore any elements that might interfere with the capture
+        return element.classList.contains('ignore-capture');
+      }
     });
+    
+    // Restore original dimensions
+    element.style.width = originalWidth;
+    element.style.height = originalHeight;
     
     return new Promise((resolve) => {
       canvas.toBlob((blob) => {
         resolve(blob);
-      }, 'image/jpeg', 1.0); // Changed to JPEG format with maximum quality
+      }, 'image/jpeg', 1.0);
     });
   } catch (error) {
     console.error('Error generating image:', error);

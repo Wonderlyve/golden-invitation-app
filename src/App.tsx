@@ -1,30 +1,31 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Toaster } from "@/components/ui/toaster";
 import Index from "./pages/Index";
 import GuestInvitation from "./pages/GuestInvitation";
 import NotFound from "./pages/NotFound";
+import PWAInstallPrompt from "./components/PWAInstallPrompt";
+import "./App.css";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/invitation" element={<GuestInvitation />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <div className="min-h-screen">
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/invitation" element={<GuestInvitation />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <PWAInstallPrompt />
+          <Toaster />
+        </div>
+      </Router>
+    </QueryClientProvider>
+  );
+}
 
 export default App;

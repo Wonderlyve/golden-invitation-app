@@ -1,5 +1,4 @@
-
-export type InvitationTemplate = 'winter' | 'elegant' | 'romantic' | 'modern' | 'balloons' | 'celebration' | 'floral' | 'botanical' | 'oval' | 'purple' | 'watercolor' | 'purple-roses' | 'coral' | 'garden' | 'minimal-beige' | 'golden-hexagon' | 'eucalyptus' | 'golden-frame' | 'illustrated' | 'anniversary' | 'navy-gold' | 'luxury-navy';
+export type InvitationTemplate = 'winter' | 'elegant' | 'romantic' | 'modern' | 'balloons' | 'celebration' | 'floral' | 'botanical' | 'oval' | 'purple' | 'watercolor' | 'purple-roses' | 'coral' | 'garden' | 'minimal-beige' | 'golden-hexagon' | 'eucalyptus' | 'golden-frame' | 'illustrated' | 'anniversary' | 'navy-gold' | 'luxury-navy' | 'pink-elegant';
 
 export interface TemplateConfig {
   id: InvitationTemplate;
@@ -140,5 +139,11 @@ export const TEMPLATES: TemplateConfig[] = [
     name: 'Luxe Marine',
     description: 'Luxe marine et doré',
     preview: '👑'
+  },
+  {
+    id: 'pink-elegant',
+    name: 'Rose Élégant',
+    description: 'Design rose élégant avec cercle central',
+    preview: '🌸'
   }
 ];
