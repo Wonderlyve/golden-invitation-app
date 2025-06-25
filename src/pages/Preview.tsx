@@ -30,8 +30,7 @@ const Preview = () => {
               variant="ghost"
               className="text-pink-600 hover:bg-pink-100"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Retour
+              <ArrowLeft className="w-4 h-4" />
             </Button>
             
             <div className="flex gap-2">

@@ -50,19 +50,18 @@ const StartPage = () => {
               variant="ghost"
               className="text-pink-600 hover:bg-pink-100"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Retour
+              <ArrowLeft className="w-4 h-4" />
             </Button>
             <h1 className="text-xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
               Guest List App
             </h1>
-            <div className="w-20"></div> {/* Spacer for centering */}
+            <div className="w-10"></div>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="max-w-md mx-auto px-4 py-8">
+      <div className="max-w-md mx-auto px-4 py-4">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Bienvenue !</h2>
           <p className="text-gray-600">Choisissez une option pour commencer</p>
