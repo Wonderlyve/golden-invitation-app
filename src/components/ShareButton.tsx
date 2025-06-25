@@ -4,28 +4,38 @@ import { Button } from '@/components/ui/button';
 import { Share2 } from 'lucide-react';
 import { Guest } from '@/types/guest';
 import { shareToWhatsApp } from '@/utils/shareUtils';
+import { useWeddingDetails } from '@/hooks/useWeddingDetails';
 
 interface ShareButtonProps {
   guest: Guest;
-  onComplete?: () => void;
+  className?: string;
+  showLabel?: boolean;
 }
 
-const ShareButton: React.FC<ShareButtonProps> = ({ guest, onComplete }) => {
-  const handleShare = async () => {
-    await shareToWhatsApp(guest.name, guest.tableNumber);
-    onComplete?.();
+const ShareButton: React.FC<ShareButtonProps> = ({ 
+  guest, 
+  className = "",
+  showLabel = false 
+}) => {
+  const { weddingDetails } = useWeddingDetails();
+
+  const handleShare = () => {
+    shareToWhatsApp(guest, weddingDetails);
   };
 
   return (
     <Button
       onClick={handleShare}
-      className="w-full flex items-center gap-3 bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-500 hover:to-emerald-500 text-white p-4 h-auto"
+      variant="outline"
+      className={className}
     >
-      <Share2 className="w-5 h-5" />
-      <div className="text-left">
-        <div className="font-medium">Partager sur WhatsApp</div>
-        <div className="text-sm opacity-90">Envoyer l'invitation personnalisée</div>
-      </div>
+      <Share2 className="w-4 h-4 text-green-600" />
+      {showLabel && (
+        <div className="text-left ml-2">
+          <div className="font-medium">Partager sur WhatsApp</div>
+          <div className="text-sm text-gray-500">Envoyer l'invitation</div>
+        </div>
+      )}
     </Button>
   );
 };

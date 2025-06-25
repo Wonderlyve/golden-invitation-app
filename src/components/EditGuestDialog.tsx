@@ -1,92 +1,101 @@
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Guest } from '@/types/guest';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Edit } from 'lucide-react';
-import { Guest } from '@/types/guest';
+import { useToast } from '@/hooks/use-toast';
 
 interface EditGuestDialogProps {
   guest: Guest;
   onUpdate: (id: string, name: string, tableNumber: string) => void;
-  onComplete?: () => void;
+  className?: string;
+  showLabel?: boolean;
 }
 
-const EditGuestDialog: React.FC<EditGuestDialogProps> = ({ guest, onUpdate, onComplete }) => {
+const EditGuestDialog: React.FC<EditGuestDialogProps> = ({ 
+  guest, 
+  onUpdate, 
+  className = "",
+  showLabel = false 
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState(guest.name);
   const [tableNumber, setTableNumber] = useState(guest.tableNumber);
-  const [open, setOpen] = useState(false);
+  const { toast } = useToast();
 
-  const handleSave = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (name.trim() && tableNumber.trim()) {
       onUpdate(guest.id, name.trim(), tableNumber.trim());
-      setOpen(false);
-      onComplete?.();
+      setIsOpen(false);
+      toast({
+        title: "Succès",
+        description: "L'invité a été modifié avec succès"
+      });
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="w-full flex items-center gap-3 bg-gradient-to-r from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 text-white p-4 h-auto">
-          <Edit className="w-5 h-5" />
-          <div className="text-left">
-            <div className="font-medium">Modifier</div>
-            <div className="text-sm opacity-90">Éditer les informations</div>
-          </div>
+        <Button variant="outline" className={className}>
+          <Edit className="w-4 h-4" />
+          {showLabel && (
+            <div className="text-left ml-2">
+              <div className="font-medium">Modifier l'invité</div>
+              <div className="text-sm text-gray-500">Changer nom ou table</div>
+            </div>
+          )}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-white border-pink-200">
+      <DialogContent className="bg-white border-pink-200">
         <DialogHeader>
           <DialogTitle className="text-gray-800">Modifier l'invité</DialogTitle>
-          <DialogDescription className="text-gray-600">
-            Modifiez les informations de l'invité ci-dessous.
-          </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Nom</label>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Label htmlFor="name">Nom de l'invité</Label>
             <Input
+              id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="border-pink-300 focus:border-pink-500"
-              placeholder="Nom de l'invité"
+              required
             />
           </div>
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Table</label>
+          <div>
+            <Label htmlFor="tableNumber">Numéro de table</Label>
             <Input
+              id="tableNumber"
               value={tableNumber}
               onChange={(e) => setTableNumber(e.target.value)}
               className="border-pink-300 focus:border-pink-500"
-              placeholder="Numéro de table"
+              required
             />
           </div>
-        </div>
-        <DialogFooter>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => setOpen(false)}
-            className="border-pink-300 text-pink-600 hover:bg-pink-50"
-          >
-            Annuler
-          </Button>
-          <Button 
-            onClick={handleSave} 
-            className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600"
-          >
-            Sauvegarder
-          </Button>
-        </DialogFooter>
+          <div className="flex gap-2 pt-4">
+            <Button type="submit" className="flex-1 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600">
+              Sauvegarder
+            </Button>
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={() => setIsOpen(false)}
+              className="flex-1 border-pink-300 text-pink-600 hover:bg-pink-50"
+            >
+              Annuler
+            </Button>
+          </div>
+        </form>
       </DialogContent>
     </Dialog>
   );

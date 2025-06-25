@@ -1,17 +1,17 @@
 
-import React from 'react';
-import { Eye, Share2, Edit, Trash2 } from 'lucide-react';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-} from '@/components/ui/drawer';
-import { Button } from '@/components/ui/button';
+import React, { useState } from 'react';
 import { Guest } from '@/types/guest';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { Eye, Share2, Edit, Trash2 } from 'lucide-react';
 import ShareButton from './ShareButton';
 import EditGuestDialog from './EditGuestDialog';
+import DeleteConfirmDialog from './DeleteConfirmDialog';
 
 interface GuestBottomSheetProps {
   guest: Guest;
@@ -30,60 +30,83 @@ const GuestBottomSheet: React.FC<GuestBottomSheetProps> = ({
   onUpdate,
   onDelete
 }) => {
-  const handleAction = (action: () => void) => {
-    action();
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
+  const handleDelete = () => {
+    onDelete(guest.id);
+    setShowDeleteDialog(false);
     onOpenChange(false);
   };
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="h-[80vh] bg-white">
-        <DrawerHeader className="text-center border-b border-gray-200 pb-4">
-          <DrawerTitle className="text-xl font-semibold text-gray-800">
-            {guest.name}
-          </DrawerTitle>
-          <DrawerDescription className="text-gray-600">
-            Table {guest.tableNumber}
-          </DrawerDescription>
-        </DrawerHeader>
-        
-        <div className="p-6 space-y-4">
-          <Button
-            onClick={() => handleAction(() => onPreview(guest))}
-            className="w-full flex items-center gap-3 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white p-4 h-auto"
-          >
-            <Eye className="w-5 h-5" />
-            <div className="text-left">
-              <div className="font-medium">Aperçu</div>
-              <div className="text-sm opacity-90">Voir l'invitation de cet invité</div>
+    <>
+      <Sheet open={open} onOpenChange={onOpenChange}>
+        <SheetContent 
+          side="bottom" 
+          className="h-[80vh] bg-white border-t-pink-200 rounded-t-3xl"
+        >
+          <SheetHeader className="pb-6">
+            <SheetTitle className="text-xl font-bold text-gray-800">
+              {guest.name}
+            </SheetTitle>
+            <p className="text-gray-600">Table {guest.tableNumber}</p>
+          </SheetHeader>
+          
+          <div className="space-y-4">
+            <Button
+              onClick={() => {
+                onPreview(guest);
+                onOpenChange(false);
+              }}
+              variant="outline"
+              className="w-full justify-start gap-3 h-14 border-pink-200 hover:bg-pink-50"
+            >
+              <Eye className="w-5 h-5 text-yellow-600" />
+              <div className="text-left">
+                <div className="font-medium">Aperçu de l'invitation</div>
+                <div className="text-sm text-gray-500">Voir l'invitation personnalisée</div>
+              </div>
+            </Button>
+
+            <div className="w-full">
+              <ShareButton 
+                guest={guest}
+                className="w-full justify-start gap-3 h-14 border-pink-200 hover:bg-pink-50"
+                showLabel={true}
+              />
             </div>
-          </Button>
 
-          <div className="w-full">
-            <ShareButton guest={guest} onComplete={() => onOpenChange(false)} />
-          </div>
-
-          <div className="w-full">
-            <EditGuestDialog 
-              guest={guest} 
-              onUpdate={onUpdate}
-              onComplete={() => onOpenChange(false)}
-            />
-          </div>
-
-          <Button
-            onClick={() => handleAction(() => onDelete(guest.id))}
-            className="w-full flex items-center gap-3 bg-gradient-to-r from-red-400 to-pink-400 hover:from-red-500 hover:to-pink-500 text-white p-4 h-auto"
-          >
-            <Trash2 className="w-5 h-5" />
-            <div className="text-left">
-              <div className="font-medium">Supprimer</div>
-              <div className="text-sm opacity-90">Retirer cet invité de la liste</div>
+            <div className="w-full">
+              <EditGuestDialog 
+                guest={guest} 
+                onUpdate={onUpdate}
+                className="w-full justify-start gap-3 h-14 border-pink-200 hover:bg-pink-50"
+                showLabel={true}
+              />
             </div>
-          </Button>
-        </div>
-      </DrawerContent>
-    </Drawer>
+
+            <Button
+              onClick={() => setShowDeleteDialog(true)}
+              variant="outline"
+              className="w-full justify-start gap-3 h-14 border-red-200 hover:bg-red-50 text-red-600"
+            >
+              <Trash2 className="w-5 h-5" />
+              <div className="text-left">
+                <div className="font-medium">Supprimer l'invité</div>
+                <div className="text-sm text-red-400">Retirer de la liste</div>
+              </div>
+            </Button>
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      <DeleteConfirmDialog
+        open={showDeleteDialog}
+        onOpenChange={setShowDeleteDialog}
+        onConfirm={handleDelete}
+        guestName={guest.name}
+      />
+    </>
   );
 };
 

@@ -78,17 +78,14 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="text-white hover:bg-white/20"
-        >
-          <Edit className="w-4 h-4" />
+        <Button className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white">
+          <Edit className="w-4 h-4 mr-2" />
+          Modifier les détails
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto bg-white border-pink-200">
         <DialogHeader>
-          <DialogTitle>Modifier les détails du mariage</DialogTitle>
+          <DialogTitle className="text-gray-800">Modifier les détails du mariage</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -108,6 +105,7 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
                 id="groomName"
                 value={formData.groomName}
                 onChange={(e) => handleInputChange('groomName', e.target.value)}
+                className="border-pink-300 focus:border-pink-500"
                 required
               />
             </div>
@@ -117,6 +115,7 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
                 id="brideName"
                 value={formData.brideName}
                 onChange={(e) => handleInputChange('brideName', e.target.value)}
+                className="border-pink-300 focus:border-pink-500"
                 required
               />
             </div>
@@ -130,6 +129,7 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
                 value={formData.weddingDate}
                 onChange={(e) => handleInputChange('weddingDate', e.target.value)}
                 placeholder="ex: 22ᵀᴴ OCT"
+                className="border-pink-300 focus:border-pink-500"
                 required
               />
             </div>
@@ -140,6 +140,7 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
                 value={formData.ceremonyTime}
                 onChange={(e) => handleInputChange('ceremonyTime', e.target.value)}
                 placeholder="ex: 10AM"
+                className="border-pink-300 focus:border-pink-500"
                 required
               />
             </div>
@@ -151,6 +152,7 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
               id="venue"
               value={formData.venue}
               onChange={(e) => handleInputChange('venue', e.target.value)}
+              className="border-pink-300 focus:border-pink-500"
               required
             />
           </div>
@@ -161,6 +163,7 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
               id="venueLocation"
               value={formData.venueLocation}
               onChange={(e) => handleInputChange('venueLocation', e.target.value)}
+              className="border-pink-300 focus:border-pink-500"
               required
             />
           </div>
@@ -172,6 +175,7 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
               value={formData.websiteUrl}
               onChange={(e) => handleInputChange('websiteUrl', e.target.value)}
               placeholder="www.exemple.com"
+              className="border-pink-300 focus:border-pink-500"
             />
           </div>
 
@@ -182,7 +186,7 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
               value={formData.invitationText}
               onChange={(e) => handleInputChange('invitationText', e.target.value)}
               placeholder="Votre message d'invitation personnalisé..."
-              className="min-h-[80px]"
+              className="min-h-[80px] border-pink-300 focus:border-pink-500"
               required
             />
           </div>
@@ -194,7 +198,7 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
               type="file"
               accept="image/*"
               onChange={handleImageUpload}
-              className="cursor-pointer"
+              className="cursor-pointer border-pink-300 focus:border-pink-500"
             />
             {formData.couplePhotoUrl && (
               <div className="mt-2 text-sm text-green-600">
@@ -204,14 +208,17 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
           </div>
 
           <div className="flex gap-2 pt-4">
-            <Button type="submit" className="flex-1">
+            <Button 
+              type="submit" 
+              className="flex-1 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600"
+            >
               Sauvegarder
             </Button>
             <Button 
               type="button" 
               variant="outline" 
               onClick={() => setIsOpen(false)}
-              className="flex-1"
+              className="flex-1 border-pink-300 text-pink-600 hover:bg-pink-50"
             >
               Annuler
             </Button>

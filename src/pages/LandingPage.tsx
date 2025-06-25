@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -68,7 +67,7 @@ const LandingPage = () => {
         <div className="relative max-w-4xl mx-auto px-4 py-16 text-center z-10">
           <div className="mb-8">
             <img 
-              src="/lovable-uploads/7e3293e8-5633-4a2b-ba1a-2f2947272435.png" 
+              src="/lovable-uploads/1490f345-f052-41c3-8e56-512e53969e4a.png" 
               alt="Wedding invitation background"
               className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
             />
