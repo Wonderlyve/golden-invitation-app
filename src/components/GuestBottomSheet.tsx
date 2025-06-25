@@ -69,11 +69,23 @@ const GuestBottomSheet: React.FC<GuestBottomSheetProps> = ({
             </Button>
 
             <div className="w-full">
-              <ShareButton 
-                guest={guest}
+              <Button
+                variant="outline"
                 className="w-full justify-start gap-3 h-14 border-pink-200 hover:bg-pink-50"
-                showLabel={true}
-              />
+                onClick={() => {
+                  const shareButton = document.querySelector('.share-button-hidden') as HTMLButtonElement;
+                  if (shareButton) shareButton.click();
+                }}
+              >
+                <Share2 className="w-5 h-5 text-green-600" />
+                <div className="text-left">
+                  <div className="font-medium">Partager l'invitation</div>
+                  <div className="text-sm text-gray-500">Envoyer via WhatsApp</div>
+                </div>
+              </Button>
+              <div className="hidden">
+                <ShareButton guest={guest} />
+              </div>
             </div>
 
             <div className="w-full">

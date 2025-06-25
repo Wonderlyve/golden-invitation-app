@@ -49,6 +49,38 @@ export const generateInvitationImage = async (elementId: string): Promise<Blob |
   }
 };
 
+export const shareInvitation = async (guestName: string, tableNumber: string, weddingDetails: any) => {
+  // Get current domain for the invitation link
+  const currentDomain = window.location.origin;
+  const invitationLink = `${currentDomain}/invitation?name=${encodeURIComponent(guestName)}&table=${encodeURIComponent(tableNumber)}`;
+  
+  // Create a personalized WhatsApp message with all invitation details
+  const message = `🎉 *Invitation de mariage*
+
+✨ Bonjour ${guestName} !
+
+Vous êtes officiellement invité(e) au mariage de ${weddingDetails.groomName} & ${weddingDetails.brideName}
+
+📅 *${weddingDetails.weddingDate} à ${weddingDetails.ceremonyTime}*
+📍 *${weddingDetails.venue}, ${weddingDetails.venueLocation}*
+🪑 *Table ${tableNumber}*
+
+👆 *Cliquez sur ce lien pour voir et télécharger votre invitation personnalisée :*
+${invitationLink}
+
+Nous avons hâte de célébrer avec vous ! 💕`;
+
+  // Encode the message for WhatsApp URL
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+  
+  console.log('Generated invitation link:', invitationLink);
+  console.log('WhatsApp message:', message);
+  
+  // Open WhatsApp with the personalized message
+  window.open(whatsappUrl, '_blank');
+};
+
 export const shareToWhatsApp = async (guestName: string, tableNumber: string, imageBlob?: Blob) => {
   // Get current domain for the invitation link
   const currentDomain = window.location.origin;
