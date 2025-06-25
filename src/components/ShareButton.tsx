@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Share2 } from 'lucide-react';
 import { Guest } from '@/types/guest';
-import { shareInvitation } from '@/utils/shareUtils';
+import { shareToWhatsApp } from '@/utils/shareUtils';
 
 interface ShareButtonProps {
   guest: Guest;
@@ -11,8 +11,8 @@ interface ShareButtonProps {
 }
 
 const ShareButton: React.FC<ShareButtonProps> = ({ guest, onComplete }) => {
-  const handleShare = () => {
-    shareInvitation(guest);
+  const handleShare = async () => {
+    await shareToWhatsApp(guest.name, guest.tableNumber);
     onComplete?.();
   };
 
