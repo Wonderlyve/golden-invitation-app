@@ -3,39 +3,39 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Share2 } from 'lucide-react';
 import { Guest } from '@/types/guest';
-import { shareToWhatsApp } from '@/utils/shareUtils';
-import { useWeddingDetails } from '@/hooks/useWeddingDetails';
 
 interface ShareButtonProps {
   guest: Guest;
-  className?: string;
-  showLabel?: boolean;
+  onShare?: () => void;
 }
 
-const ShareButton: React.FC<ShareButtonProps> = ({ 
-  guest, 
-  className = "",
-  showLabel = false 
-}) => {
-  const { weddingDetails } = useWeddingDetails();
-
+const ShareButton: React.FC<ShareButtonProps> = ({ guest, onShare }) => {
   const handleShare = () => {
-    shareToWhatsApp(guest, weddingDetails);
+    const shareText = `Invitation de mariage pour ${guest.name} - Table ${guest.tableNumber}`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: 'Invitation de mariage',
+        text: shareText,
+        url: window.location.href,
+      }).catch(console.error);
+    } else {
+      // Fallback pour les navigateurs qui ne supportent pas l'API Share
+      navigator.clipboard.writeText(`${shareText} - ${window.location.href}`);
+    }
+    
+    onShare?.();
   };
 
   return (
     <Button
       onClick={handleShare}
       variant="outline"
-      className={className}
+      size="sm"
+      className="gap-2"
     >
-      <Share2 className="w-4 h-4 text-green-600" />
-      {showLabel && (
-        <div className="text-left ml-2">
-          <div className="font-medium">Partager sur WhatsApp</div>
-          <div className="text-sm text-gray-500">Envoyer l'invitation</div>
-        </div>
-      )}
+      <Share2 className="h-4 w-4" />
+      Partager
     </Button>
   );
 };

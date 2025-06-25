@@ -31,16 +31,20 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
   }, [guests, searchTerm]);
 
   const handleAddGuest = () => {
-    if (guests.length >= 5) {
+    if (guests.length >= 2) {
       setShowLimitDialog(true);
       return;
     }
 
     if (newGuestName.trim() && newGuestTable.trim()) {
-      addGuest(newGuestName.trim(), newGuestTable.trim());
-      setNewGuestName('');
-      setNewGuestTable('');
-      setShowAddForm(false);
+      const success = addGuest(newGuestName.trim(), newGuestTable.trim());
+      if (success) {
+        setNewGuestName('');
+        setNewGuestTable('');
+        setShowAddForm(false);
+      } else {
+        setShowLimitDialog(true);
+      }
     }
   };
 
@@ -196,7 +200,7 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
       {/* Footer */}
       <div className="text-center py-4 text-gray-500 text-xs bg-white/50">
         <p>Application d'invitations de mariage</p>
-        <p className="mt-1">Stockage local • Version démo limitée à 5 invités</p>
+        <p className="mt-1">Stockage local • Version démo limitée à 2 invités</p>
       </div>
     </div>
   );
