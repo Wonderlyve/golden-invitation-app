@@ -28,7 +28,7 @@ const GuestLimitDialog: React.FC<GuestLimitDialogProps> = ({ open, onOpenChange 
           </DialogTitle>
           <DialogDescription className="text-amber-700 mt-4 space-y-3">
             <p className="text-base">
-              Vous ne pouvez ajouter que <strong>5 invités</strong> en mode démo.
+              Vous ne pouvez ajouter que <strong>2 invités</strong> en mode démo.
             </p>
             <div className="bg-white/50 p-4 rounded-lg border border-amber-200">
               <p className="font-medium text-amber-800 mb-2">

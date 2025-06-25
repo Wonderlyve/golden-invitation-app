@@ -85,7 +85,7 @@ const StartPage = () => {
         </div>
 
         <div className="mt-8 text-center">
-          <p className="text-xs text-gray-500">Version démo • Limité à 5 invités</p>
+          <p className="text-xs text-gray-500">Version démo • Limité à 2 invités</p>
         </div>
       </div>
     </div>

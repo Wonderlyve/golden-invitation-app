@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Guest } from '@/types/guest';
 
@@ -24,6 +23,11 @@ export const useGuests = () => {
   };
 
   const addGuest = (name: string, tableNumber: string) => {
+    // Limiter à 2 invités en mode démo
+    if (guests.length >= 2) {
+      return false; // Indique que l'ajout a échoué
+    }
+    
     const newGuest: Guest = {
       id: Date.now().toString(),
       name,
@@ -33,6 +37,7 @@ export const useGuests = () => {
     };
     const updatedGuests = [...guests, newGuest];
     saveToStorage(updatedGuests);
+    return true; // Indique que l'ajout a réussi
   };
 
   const updateGuest = (id: string, name: string, tableNumber: string) => {
