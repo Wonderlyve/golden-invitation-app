@@ -51,7 +51,7 @@ const PWAInstallPrompt: React.FC = () => {
     <div className="fixed bottom-4 left-4 right-4 bg-white border border-gray-200 rounded-lg shadow-lg p-4 z-50">
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <h3 className="font-semibold text-gray-900">Installer l'application</h3>
+          <h3 className="font-semibold text-gray-900">Installer Guestly</h3>
           <p className="text-sm text-gray-600">Installez l'app pour un accès rapide aux invitations</p>
         </div>
         <div className="flex items-center gap-2 ml-4">

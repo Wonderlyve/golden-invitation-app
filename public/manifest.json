@@ -1,24 +1,24 @@
 
 {
-  "name": "Golden Invitation App",
-  "short_name": "Invitations",
+  "name": "Guestly",
+  "short_name": "Guestly",
   "description": "Application d'invitations de mariage personnalisées",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#0f172a",
+  "theme_color": "#4F46E5",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/placeholder.svg",
+      "src": "/lovable-uploads/3232a24a-642d-4572-ad78-7bf0b981c671.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/placeholder.svg",
+      "src": "/lovable-uploads/3232a24a-642d-4572-ad78-7bf0b981c671.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ],
