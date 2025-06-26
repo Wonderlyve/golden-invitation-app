@@ -36,10 +36,16 @@ Nous avons hâte de célébrer avec vous ! 💕`;
 
     // Encode the message for WhatsApp URL
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+    
+    // Si l'invité a un numéro de téléphone, envoyer directement à ce numéro
+    const phoneNumber = guest.phoneNumber?.replace(/\s+/g, '').replace(/^\+/, '');
+    const whatsappUrl = phoneNumber 
+      ? `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+      : `https://wa.me/?text=${encodedMessage}`;
     
     console.log('Generated invitation link:', invitationLink);
     console.log('WhatsApp message:', message);
+    console.log('Sending to phone:', phoneNumber || 'No specific number');
     
     // Open WhatsApp with the personalized message
     window.open(whatsappUrl, '_blank');

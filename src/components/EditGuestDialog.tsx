@@ -16,7 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 
 interface EditGuestDialogProps {
   guest: Guest;
-  onUpdate: (id: string, name: string, tableNumber: string) => void;
+  onUpdate: (id: string, name: string, tableNumber: string, phoneNumber: string) => void;
   className?: string;
   showLabel?: boolean;
 }
@@ -30,12 +30,13 @@ const EditGuestDialog: React.FC<EditGuestDialogProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState(guest.name);
   const [tableNumber, setTableNumber] = useState(guest.tableNumber);
+  const [phoneNumber, setPhoneNumber] = useState(guest.phoneNumber || '');
   const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (name.trim() && tableNumber.trim()) {
-      onUpdate(guest.id, name.trim(), tableNumber.trim());
+    if (name.trim() && tableNumber.trim() && phoneNumber.trim()) {
+      onUpdate(guest.id, name.trim(), tableNumber.trim(), phoneNumber.trim());
       setIsOpen(false);
       toast({
         title: "Succès",
@@ -68,9 +69,11 @@ const EditGuestDialog: React.FC<EditGuestDialogProps> = ({
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="border-pink-300 focus:border-pink-500"
-              required
+              className="border-pink-300 focus:border-pink-500 bg-gray-100"
+              placeholder="Désactivé pour la version démo"
+              disabled
             />
+            <p className="text-xs text-gray-500 mt-1">La modification du nom est désactivée en version démo</p>
           </div>
           <div>
             <Label htmlFor="tableNumber">Numéro de table</Label>
@@ -79,6 +82,18 @@ const EditGuestDialog: React.FC<EditGuestDialogProps> = ({
               value={tableNumber}
               onChange={(e) => setTableNumber(e.target.value)}
               className="border-pink-300 focus:border-pink-500"
+              required
+            />
+          </div>
+          <div>
+            <Label htmlFor="phoneNumber">Numéro de téléphone</Label>
+            <Input
+              id="phoneNumber"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className="border-pink-300 focus:border-pink-500"
+              type="tel"
+              placeholder="+243895117887"
               required
             />
           </div>

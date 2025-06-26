@@ -3,6 +3,7 @@ export interface Guest {
   id: string;
   name: string;
   tableNumber: string; // Changed from number to string to allow letters
+  phoneNumber: string; // Nouveau champ pour le numéro de téléphone
   isVerified: boolean;
   createdAt: Date;
 }

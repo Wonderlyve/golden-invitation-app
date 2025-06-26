@@ -18,6 +18,7 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
   const { guests, addGuest, updateGuest, deleteGuest, verifyGuest } = useGuests();
   const [newGuestName, setNewGuestName] = useState('');
   const [newGuestTable, setNewGuestTable] = useState('');
+  const [newGuestPhone, setNewGuestPhone] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
   const [showLimitDialog, setShowLimitDialog] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,11 +37,12 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
       return;
     }
 
-    if (newGuestName.trim() && newGuestTable.trim()) {
-      const success = addGuest(newGuestName.trim(), newGuestTable.trim());
+    if (newGuestName.trim() && newGuestTable.trim() && newGuestPhone.trim()) {
+      const success = addGuest(newGuestName.trim(), newGuestTable.trim(), newGuestPhone.trim());
       if (success) {
         setNewGuestName('');
         setNewGuestTable('');
+        setNewGuestPhone('');
         setShowAddForm(false);
       } else {
         setShowLimitDialog(true);
@@ -64,8 +66,7 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
               variant="ghost"
               className="text-pink-600 hover:bg-pink-100"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Retour
+              <ArrowLeft className="w-4 h-4" />
             </Button>
             <h2 className="text-xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
               Liste des invités
@@ -99,6 +100,13 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
                 value={newGuestTable}
                 onChange={(e) => setNewGuestTable(e.target.value)}
                 className="border-pink-300 focus:border-pink-500"
+              />
+              <Input
+                placeholder="Numéro de téléphone (ex: +243895117887)"
+                value={newGuestPhone}
+                onChange={(e) => setNewGuestPhone(e.target.value)}
+                className="border-pink-300 focus:border-pink-500"
+                type="tel"
               />
               <div className="flex gap-2">
                 <Button 
@@ -153,6 +161,9 @@ const GuestList: React.FC<GuestListProps> = ({ onSelectGuest }) => {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-gray-800 truncate">{guest.name}</h3>
                   <p className="text-sm text-gray-600">Table {guest.tableNumber}</p>
+                  {guest.phoneNumber && (
+                    <p className="text-xs text-gray-500">{guest.phoneNumber}</p>
+                  )}
                 </div>
                 <button
                   onClick={() => handleGuestMenuClick(guest)}

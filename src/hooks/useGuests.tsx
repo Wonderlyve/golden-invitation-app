@@ -11,6 +11,7 @@ export const useGuests = () => {
     if (savedGuests) {
       const parsedGuests = JSON.parse(savedGuests).map((guest: any) => ({
         ...guest,
+        phoneNumber: guest.phoneNumber || '', // Assurer la compatibilité avec les anciens invités
         createdAt: new Date(guest.createdAt)
       }));
       setGuests(parsedGuests);
@@ -22,7 +23,7 @@ export const useGuests = () => {
     setGuests(updatedGuests);
   };
 
-  const addGuest = (name: string, tableNumber: string) => {
+  const addGuest = (name: string, tableNumber: string, phoneNumber: string) => {
     // Limiter à 2 invités en mode démo
     if (guests.length >= 2) {
       return false; // Indique que l'ajout a échoué
@@ -32,6 +33,7 @@ export const useGuests = () => {
       id: Date.now().toString(),
       name,
       tableNumber,
+      phoneNumber,
       isVerified: false,
       createdAt: new Date()
     };
@@ -40,9 +42,9 @@ export const useGuests = () => {
     return true; // Indique que l'ajout a réussi
   };
 
-  const updateGuest = (id: string, name: string, tableNumber: string) => {
+  const updateGuest = (id: string, name: string, tableNumber: string, phoneNumber: string) => {
     const updatedGuests = guests.map(guest => 
-      guest.id === id ? { ...guest, name, tableNumber } : guest
+      guest.id === id ? { ...guest, name, tableNumber, phoneNumber } : guest
     );
     saveToStorage(updatedGuests);
   };

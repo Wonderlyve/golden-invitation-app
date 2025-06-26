@@ -18,7 +18,7 @@ interface GuestBottomSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onPreview: (guest: Guest) => void;
-  onUpdate: (id: string, name: string, tableNumber: string) => void;
+  onUpdate: (id: string, name: string, tableNumber: string, phoneNumber: string) => void;
   onDelete: (id: string) => void;
 }
 
@@ -50,6 +50,9 @@ const GuestBottomSheet: React.FC<GuestBottomSheetProps> = ({
               {guest.name}
             </SheetTitle>
             <p className="text-gray-600">Table {guest.tableNumber}</p>
+            {guest.phoneNumber && (
+              <p className="text-sm text-gray-500">{guest.phoneNumber}</p>
+            )}
           </SheetHeader>
           
           <div className="space-y-4">
