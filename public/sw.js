@@ -1,10 +1,10 @@
 
-const CACHE_NAME = 'guestly-v1';
+const CACHE_NAME = 'golden-invitation-v1';
 const urlsToCache = [
   '/',
   '/src/main.tsx',
   '/src/index.css',
-  '/lovable-uploads/3232a24a-642d-4572-ad78-7bf0b981c671.png'
+  '/placeholder.svg'
 ];
 
 self.addEventListener('install', (event) => {

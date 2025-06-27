@@ -1,4 +1,0 @@
-
-# Netlify redirects for SPA routing
-/invitation/* /invitation/index.html 200
-/* /index.html 200

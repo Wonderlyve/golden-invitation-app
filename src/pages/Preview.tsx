@@ -63,14 +63,7 @@ const Preview = () => {
 
         <InvitationTemplates
           template={weddingDetails.template}
-          guest={{ 
-            id: 'preview', 
-            name: 'Invité(e)', 
-            tableNumber: '1', 
-            phoneNumber: '', // Ajout de la propriété manquante
-            isVerified: false, 
-            createdAt: new Date() 
-          }}
+          guest={{ id: 'preview', name: 'Invité(e)', tableNumber: '1', isVerified: false, createdAt: new Date() }}
           weddingDetails={weddingDetails}
           isPreview={true}
         />
