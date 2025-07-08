@@ -62,6 +62,12 @@ const Edition = () => {
               <span className="font-medium text-gray-700">Adresse :</span>
               <span className="ml-2 text-gray-600">{weddingDetails.venueLocation}</span>
             </div>
+            {weddingDetails.rsvpPhoneNumber && (
+              <div>
+                <span className="font-medium text-gray-700">Numéro RSVP :</span>
+                <span className="ml-2 text-gray-600">{weddingDetails.rsvpPhoneNumber}</span>
+              </div>
+            )}
           </div>
         </Card>
 

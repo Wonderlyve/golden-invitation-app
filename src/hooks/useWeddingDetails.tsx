@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { WeddingDetails } from '@/types/guest';
 
@@ -13,6 +14,7 @@ const defaultWeddingDetails: WeddingDetails = {
   websiteUrl: 'www.jackandsofia.com',
   couplePhotoUrl: '',
   invitationText: 'Nous avons l\'honneur de vous inviter à célébrer notre union dans un cadre magique. Votre présence illuminera cette journée exceptionnelle.',
+  rsvpPhoneNumber: '', // Nouveau champ pour le numéro RSVP
   template: 'winter'
 };
 

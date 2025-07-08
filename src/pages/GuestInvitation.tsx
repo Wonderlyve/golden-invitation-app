@@ -56,9 +56,14 @@ Merci pour cette belle invitation ! 💕`;
 
     // Encoder le message pour WhatsApp
     const encodedMessage = encodeURIComponent(confirmationMessage);
-    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+    
+    // Utiliser le numéro RSVP de l'organisateur si disponible, sinon envoyer sans numéro spécifique
+    const whatsappUrl = weddingDetails.rsvpPhoneNumber 
+      ? `https://wa.me/${weddingDetails.rsvpPhoneNumber.replace(/[^0-9]/g, '')}?text=${encodedMessage}`
+      : `https://wa.me/?text=${encodedMessage}`;
     
     console.log('Sending confirmation message:', confirmationMessage);
+    console.log('RSVP number:', weddingDetails.rsvpPhoneNumber);
     
     // Ouvrir WhatsApp avec le message de confirmation
     window.open(whatsappUrl, '_blank');

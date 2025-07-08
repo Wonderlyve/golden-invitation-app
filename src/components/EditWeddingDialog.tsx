@@ -180,6 +180,20 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
           </div>
 
           <div>
+            <Label htmlFor="rsvpPhoneNumber">Mon numéro RSVP</Label>
+            <Input
+              id="rsvpPhoneNumber"
+              value={formData.rsvpPhoneNumber}
+              onChange={(e) => handleInputChange('rsvpPhoneNumber', e.target.value)}
+              placeholder="ex: +33612345678"
+              className="border-pink-300 focus:border-pink-500"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Les confirmations de présence seront envoyées à ce numéro
+            </p>
+          </div>
+
+          <div>
             <Label htmlFor="invitationText">Texte de l'invitation</Label>
             <Textarea
               id="invitationText"
