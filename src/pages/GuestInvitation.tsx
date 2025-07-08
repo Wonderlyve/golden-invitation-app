@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Download, Heart } from 'lucide-react';
+import { Download, Heart, Check } from 'lucide-react';
 import { useWeddingDetails } from '@/hooks/useWeddingDetails';
 import InvitationTemplates from '@/components/InvitationTemplates';
 import { generateInvitationImage } from '@/utils/shareUtils';
@@ -13,6 +13,7 @@ const GuestInvitation = () => {
   const [searchParams] = useSearchParams();
   const [isDownloading, setIsDownloading] = useState(false);
   const [showPopup, setShowPopup] = useState(true);
+  const [isConfirming, setIsConfirming] = useState(false);
   const { weddingDetails } = useWeddingDetails();
   const { toast } = useToast();
 
@@ -32,8 +33,43 @@ const GuestInvitation = () => {
     id: 'guest-invitation',
     name: guestName,
     tableNumber: tableNumber,
+    phoneNumber: '', // Ajout de la propriété manquante
     isVerified: true,
     createdAt: new Date()
+  };
+
+  const handleConfirmPresence = () => {
+    setIsConfirming(true);
+    
+    // Message de confirmation pour l'organisateur
+    const confirmationMessage = `✅ *Confirmation de présence*
+
+Bonjour ! 
+
+${guestName} confirme sa présence au mariage de ${weddingDetails.groomName} & ${weddingDetails.brideName}
+
+📅 ${weddingDetails.weddingDate} à ${weddingDetails.ceremonyTime}
+📍 ${weddingDetails.venue}, ${weddingDetails.venueLocation}
+🪑 Table ${tableNumber}
+
+Merci pour cette belle invitation ! 💕`;
+
+    // Encoder le message pour WhatsApp
+    const encodedMessage = encodeURIComponent(confirmationMessage);
+    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+    
+    console.log('Sending confirmation message:', confirmationMessage);
+    
+    // Ouvrir WhatsApp avec le message de confirmation
+    window.open(whatsappUrl, '_blank');
+    
+    setIsConfirming(false);
+    setShowPopup(false);
+    
+    toast({
+      title: "Confirmation envoyée",
+      description: "Votre confirmation de présence a été envoyée !",
+    });
   };
 
   const handleDownload = async () => {
@@ -102,12 +138,31 @@ const GuestInvitation = () => {
                 </p>
               </div>
             </div>
-            <Button 
-              onClick={() => setShowPopup(false)}
-              className="w-full bg-pink-600 hover:bg-pink-700"
-            >
-              Voir mon invitation
-            </Button>
+            <div className="space-y-3">
+              <Button 
+                onClick={() => setShowPopup(false)}
+                className="w-full bg-pink-600 hover:bg-pink-700"
+              >
+                Voir mon invitation
+              </Button>
+              <Button 
+                onClick={handleConfirmPresence}
+                disabled={isConfirming}
+                className="w-full bg-green-600 hover:bg-green-700"
+              >
+                {isConfirming ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    Confirmation...
+                  </>
+                ) : (
+                  <>
+                    <Check className="w-4 h-4 mr-2" />
+                    Je confirme ma présence
+                  </>
+                )}
+              </Button>
+            </div>
           </Card>
         </div>
       )}
