@@ -73,17 +73,12 @@ const LandingPage = () => {
             />
           </div>
           
-          <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-6 leading-tight">
-            Créez et gérez
-            <br />
-            vos invitations
-            <br />
-            de mariage
+          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-4 leading-tight">
+            Créez et gérez vos invitations de mariage
           </h2>
           
-          <p className="text-xl text-gray-700 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Une application simple et élégante pour organiser votre liste d'invités, 
-            personnaliser vos invitations et les partager facilement avec vos proches.
+          <p className="text-base md:text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+            Organisez votre liste d'invités et partagez facilement vos invitations.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -158,17 +153,19 @@ const LandingPage = () => {
         <Card className="bg-gradient-to-r from-pink-500 to-rose-500 p-12 text-center text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
           <div className="relative z-10">
-            <h3 className="text-3xl font-bold mb-4">Prêt à commencer ?</h3>
-            <p className="text-xl mb-8 opacity-90">
+            <h3 className="text-2xl font-bold mb-3">Prêt à commencer ?</h3>
+            <p className="text-base md:text-lg mb-6 opacity-90">
               Créez vos premières invitations en quelques minutes
             </p>
-            <Button
-              onClick={() => navigate('/start')}
-              size="lg"
-              className="bg-white text-pink-600 hover:bg-gray-100 text-xl px-12 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-            >
-              Commencer maintenant
-            </Button>
+            <div className="flex justify-center">
+              <Button
+                onClick={() => navigate('/start')}
+                size="lg"
+                className="bg-white text-pink-600 hover:bg-gray-100 text-lg px-10 py-3 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+              >
+                Commencer maintenant
+              </Button>
+            </div>
           </div>
         </Card>
 
