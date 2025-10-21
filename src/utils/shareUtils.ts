@@ -81,7 +81,7 @@ Nous avons hâte de célébrer avec vous ! 💕`;
   window.open(whatsappUrl, '_blank');
 };
 
-export const shareToWhatsApp = async (guestName: string, tableNumber: string, imageBlob?: Blob) => {
+export const shareToWhatsApp = async (guestName: string, tableNumber: string, weddingDetails: any, imageBlob?: Blob) => {
   // Get current domain for the invitation link
   const currentDomain = window.location.origin;
   const invitationLink = `${currentDomain}/invitation?name=${encodeURIComponent(guestName)}&table=${encodeURIComponent(tableNumber)}`;
@@ -91,10 +91,10 @@ export const shareToWhatsApp = async (guestName: string, tableNumber: string, im
 
 ✨ Bonjour ${guestName} !
 
-Vous êtes officiellement invité(e) au mariage de Jack & Sofia
+Vous êtes officiellement invité(e) au mariage de ${weddingDetails.groomName} & ${weddingDetails.brideName}
 
-📅 *22 octobre à 10h*
-📍 *Sheraton Kauai Resort, Hawaii*
+📅 *${weddingDetails.weddingDate} à ${weddingDetails.ceremonyTime}*
+📍 *${weddingDetails.venue}, ${weddingDetails.venueLocation}*
 🪑 *Table ${tableNumber}*
 
 👆 *Cliquez sur ce lien pour voir et télécharger votre invitation personnalisée :*
