@@ -12,9 +12,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Edit } from 'lucide-react';
+import { Edit, Image } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import TemplateSelector from './TemplateSelector';
+import ImageCropDialog from './ImageCropDialog';
 import { InvitationTemplate } from '@/types/template';
 
 interface EditWeddingDialogProps {
@@ -26,6 +27,8 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState(weddingDetails);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [tempImageUrl, setTempImageUrl] = useState<string>('');
+  const [showCropDialog, setShowCropDialog] = useState(false);
   const { toast } = useToast();
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,10 +38,9 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
         setImageFile(file);
         const reader = new FileReader();
         reader.onload = (e) => {
-          setFormData(prev => ({
-            ...prev,
-            couplePhotoUrl: e.target?.result as string
-          }));
+          const result = e.target?.result as string;
+          setTempImageUrl(result);
+          setShowCropDialog(true);
         };
         reader.readAsDataURL(file);
       } else {
@@ -49,6 +51,17 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
         });
       }
     }
+  };
+
+  const handleCropComplete = (croppedImageUrl: string) => {
+    setFormData(prev => ({
+      ...prev,
+      couplePhotoUrl: croppedImageUrl
+    }));
+    toast({
+      title: "Image recadrée",
+      description: "L'image a été recadrée avec succès"
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -206,20 +219,47 @@ const EditWeddingDialog: React.FC<EditWeddingDialogProps> = ({ weddingDetails, o
           </div>
 
           <div>
-            <Label htmlFor="couplePhoto">Photo du couple</Label>
-            <Input
-              id="couplePhoto"
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="cursor-pointer border-pink-300 focus:border-pink-500"
-            />
-            {formData.couplePhotoUrl && (
-              <div className="mt-2 text-sm text-green-600">
-                ✓ Photo sélectionnée
-              </div>
-            )}
+            <Label>Photo du couple (1080×900 px)</Label>
+            <div className="space-y-3">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => document.getElementById('couplePhoto')?.click()}
+                className="w-full border-pink-300 text-pink-600 hover:bg-pink-50"
+              >
+                <Image className="w-4 h-4 mr-2" />
+                {formData.couplePhotoUrl ? 'Changer l\'image' : 'Importer l\'image du couple'}
+              </Button>
+              <Input
+                id="couplePhoto"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+              {formData.couplePhotoUrl && (
+                <div className="relative rounded-lg overflow-hidden border border-pink-200">
+                  <img 
+                    src={formData.couplePhotoUrl} 
+                    alt="Aperçu" 
+                    className="w-full h-32 object-cover"
+                  />
+                  <div className="absolute bottom-2 right-2">
+                    <div className="bg-green-600 text-white text-xs px-2 py-1 rounded">
+                      ✓ Image importée
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
+
+          <ImageCropDialog
+            isOpen={showCropDialog}
+            onClose={() => setShowCropDialog(false)}
+            imageSrc={tempImageUrl}
+            onCropComplete={handleCropComplete}
+          />
 
           <div className="flex gap-2 pt-4">
             <Button 

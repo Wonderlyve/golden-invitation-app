@@ -1,6 +1,7 @@
 import React from 'react';
 import { Guest, WeddingDetails } from '@/types/guest';
 import { InvitationTemplate } from '@/types/template';
+import InvitationPreview from './InvitationPreview';
 
 interface InvitationTemplatesProps {
   template: InvitationTemplate;
@@ -2230,60 +2231,21 @@ const LuxuryNavyTemplate: React.FC<{ guest: Guest | null; weddingDetails: Weddin
   </div>
 );
 
-const InvitationTemplates: React.FC<InvitationTemplatesProps> = ({
-  template,
-  guest,
+const InvitationTemplates: React.FC<InvitationTemplatesProps> = ({ 
+  template, 
+  guest, 
   weddingDetails,
-  isPreview = false
+  isPreview = false 
 }) => {
-  switch (template) {
-    case 'winter':
-      return <WinterTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'elegant':
-      return <ElegantTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'romantic':
-      return <RomanticTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'modern':
-      return <ModernTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'balloons':
-      return <BalloonsTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'celebration':
-      return <CelebrationTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'floral':
-      return <FloralTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'botanical':
-      return <BotanicalTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'oval':
-      return <OvalTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'purple':
-      return <PurpleTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'watercolor':
-      return <WatercolorTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'purple-roses':
-      return <PurpleRosesTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'coral':
-      return <CoralTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'garden':
-      return <GardenTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'minimal-beige':
-      return <MinimalBeigeTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'golden-hexagon':
-      return <GoldenHexagonTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'eucalyptus':
-      return <EucalyptusTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'golden-frame':
-      return <GoldenFrameTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'illustrated':
-      return <IllustratedTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'anniversary':
-      return <AnniversaryTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'navy-gold':
-      return <NavyGoldTemplate guest={guest} weddingDetails={weddingDetails} />;
-    case 'luxury-navy':
-      return <LuxuryNavyTemplate guest={guest} weddingDetails={weddingDetails} />;
-    default:
-      return <WinterTemplate guest={guest} weddingDetails={weddingDetails} />;
-  }
+  // Utiliser le nouveau composant InvitationPreview pour tous les templates
+  return (
+    <InvitationPreview
+      guest={guest}
+      weddingDetails={weddingDetails}
+      isPreview={isPreview}
+      template={template}
+    />
+  );
 };
 
 export default InvitationTemplates;
