@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Users, Share2, Eye, Edit, Check, Phone, Heart } from 'lucide-react';
+import { Users, Share2, Eye, Edit, Check, Phone } from 'lucide-react';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -37,11 +37,8 @@ const LandingPage = () => {
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full flex items-center justify-center shadow-lg">
-                <Heart className="w-6 h-6 text-white" />
-              </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
-                Guest List App
+                Guestly
               </h1>
             </div>
             <Button
@@ -64,8 +61,8 @@ const LandingPage = () => {
           <div className="absolute bottom-32 right-1/3 w-14 h-14 bg-rose-300 rounded-full opacity-20 animate-bounce delay-1500"></div>
         </div>
 
-        <div className="relative max-w-4xl mx-auto px-4 py-16 text-center z-10">
-          <div className="mb-8">
+        <div className="relative max-w-4xl mx-auto px-4 py-6 text-center z-10">
+          <div className="mb-6">
             <img 
               src="/lovable-uploads/1490f345-f052-41c3-8e56-512e53969e4a.png" 
               alt="Wedding invitation background"
@@ -73,8 +70,8 @@ const LandingPage = () => {
             />
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-4 leading-tight">
-            Créez et gérez vos invitations de mariage
+          <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-4 leading-tight">
+            Créez et gérer vos invitations en toute simplicité!
           </h2>
           
           <p className="text-base md:text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
@@ -185,7 +182,7 @@ const LandingPage = () => {
 
       {/* Footer */}
       <div className="text-center py-12 text-gray-600 border-t border-pink-200 bg-gradient-to-r from-pink-50 to-rose-50">
-        <p className="text-lg">© 2024 Guest List App. Application d'invitations de mariage professionnelle.</p>
+        <p className="text-lg">© 2024 Guestly. Application d'invitations de mariage professionnelle.</p>
       </div>
     </div>
   );
