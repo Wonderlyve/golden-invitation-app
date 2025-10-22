@@ -25,6 +25,7 @@ const InvitationPreview: React.FC<InvitationPreviewProps> = ({
                 src={weddingDetails.couplePhotoUrl}
                 alt="Couple"
                 className="w-full h-full object-cover"
+                crossOrigin="anonymous"
               />
               {/* Dégradé de transition */}
               <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#f5f1e8] to-transparent" />

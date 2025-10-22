@@ -6,7 +6,24 @@ export const generateInvitationImage = async (elementId: string): Promise<Blob |
   if (!element) return null;
 
   try {
-    // Wait a bit for any animations or layout changes to complete
+    // Wait for all images in the element to be fully loaded
+    const images = element.querySelectorAll('img');
+    const imageLoadPromises = Array.from(images).map((img) => {
+      return new Promise<void>((resolve) => {
+        if (img.complete && img.naturalHeight !== 0) {
+          resolve();
+        } else {
+          img.onload = () => resolve();
+          img.onerror = () => resolve(); // Continue even if image fails to load
+          // Timeout after 5 seconds
+          setTimeout(() => resolve(), 5000);
+        }
+      });
+    });
+    
+    await Promise.all(imageLoadPromises);
+    
+    // Additional wait for any animations or layout changes
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Force the element to have the exact dimensions we want
@@ -18,7 +35,7 @@ export const generateInvitationImage = async (elementId: string): Promise<Blob |
     element.style.height = '700px';
     
     const canvas = await html2canvas(element, {
-      backgroundColor: null,
+      backgroundColor: '#ffffff',
       scale: 2, // High resolution
       useCORS: true,
       allowTaint: true,
@@ -28,6 +45,7 @@ export const generateInvitationImage = async (elementId: string): Promise<Blob |
       scrollY: 0,
       windowWidth: 350,
       windowHeight: 700,
+      logging: true, // Enable logging for debugging
       ignoreElements: (element) => {
         // Ignore any elements that might interfere with the capture
         return element.classList.contains('ignore-capture');
