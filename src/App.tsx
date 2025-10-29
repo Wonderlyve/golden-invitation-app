@@ -10,7 +10,9 @@ import Edition from "./pages/Edition";
 import Preview from "./pages/Preview";
 import GuestInvitation from "./pages/GuestInvitation";
 import NotFound from "./pages/NotFound";
+import Auth from "./pages/Auth";
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -22,11 +24,12 @@ function App() {
         <div className="min-h-screen">
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/start" element={<StartPage />} />
-            <Route path="/app" element={<Index />} />
-            <Route path="/templates" element={<Templates />} />
-            <Route path="/edition" element={<Edition />} />
-            <Route path="/preview" element={<Preview />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/start" element={<ProtectedRoute><StartPage /></ProtectedRoute>} />
+            <Route path="/app" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+            <Route path="/templates" element={<ProtectedRoute><Templates /></ProtectedRoute>} />
+            <Route path="/edition" element={<ProtectedRoute><Edition /></ProtectedRoute>} />
+            <Route path="/preview" element={<ProtectedRoute><Preview /></ProtectedRoute>} />
             <Route path="/invitation" element={<GuestInvitation />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

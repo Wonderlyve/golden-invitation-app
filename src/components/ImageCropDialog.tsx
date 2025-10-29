@@ -4,6 +4,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { ZoomIn, ZoomOut } from 'lucide-react';
+import { uploadCouplePhoto } from '@/utils/uploadImage';
+import { toast } from 'sonner';
 
 interface ImageCropDialogProps {
   isOpen: boolean;
@@ -21,6 +23,7 @@ const ImageCropDialog: React.FC<ImageCropDialogProps> = ({
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const onCropCompleteHandler = useCallback((croppedArea: any, croppedAreaPixels: any) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -28,6 +31,7 @@ const ImageCropDialog: React.FC<ImageCropDialogProps> = ({
 
   const createCroppedImage = async () => {
     try {
+      setIsUploading(true);
       const image = new Image();
       image.src = imageSrc;
       await new Promise((resolve) => {
@@ -55,15 +59,24 @@ const ImageCropDialog: React.FC<ImageCropDialogProps> = ({
         900
       );
 
-      canvas.toBlob((blob) => {
+      canvas.toBlob(async (blob) => {
         if (blob) {
-          const url = URL.createObjectURL(blob);
-          onCropComplete(url);
-          onClose();
+          try {
+            const publicUrl = await uploadCouplePhoto(blob);
+            onCropComplete(publicUrl);
+            onClose();
+          } catch (error) {
+            console.error('Error uploading image:', error);
+            toast.error('Erreur lors de l\'upload de l\'image');
+          } finally {
+            setIsUploading(false);
+          }
         }
       }, 'image/jpeg', 0.95);
     } catch (error) {
       console.error('Error cropping image:', error);
+      toast.error('Erreur lors du recadrage de l\'image');
+      setIsUploading(false);
     }
   };
 
@@ -99,11 +112,11 @@ const ImageCropDialog: React.FC<ImageCropDialogProps> = ({
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
+          <Button variant="outline" onClick={onClose} disabled={isUploading}>
             Annuler
           </Button>
-          <Button onClick={createCroppedImage} className="bg-pink-600 hover:bg-pink-700">
-            Valider
+          <Button onClick={createCroppedImage} className="bg-pink-600 hover:bg-pink-700" disabled={isUploading}>
+            {isUploading ? 'Upload en cours...' : 'Valider'}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -3,10 +3,19 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Users, Palette, Edit, Eye, ArrowLeft } from 'lucide-react';
+import { Users, Palette, Edit, Eye, ArrowLeft, LogOut } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
 const StartPage = () => {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success('Déconnexion réussie');
+    navigate('/');
+  };
 
   const menuItems = [
     {
@@ -55,7 +64,14 @@ const StartPage = () => {
             <h1 className="text-xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
               Guest List App
             </h1>
-            <div className="w-10"></div>
+            <Button
+              onClick={handleSignOut}
+              variant="ghost"
+              size="icon"
+              className="text-pink-600 hover:bg-pink-100"
+            >
+              <LogOut className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </div>
