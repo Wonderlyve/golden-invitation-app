@@ -34,10 +34,10 @@ export const useGuests = () => {
   };
 
   const fetchGuests = async () => {
-    const { data, error } = await supabase
-      .from('guests')
+    const { data, error } = await (supabase
+      .from('guests' as any)
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false }) as any);
 
     if (error) {
       console.error('Error fetching guests:', error);
@@ -45,7 +45,7 @@ export const useGuests = () => {
     }
 
     if (data) {
-      const mappedGuests: Guest[] = data.map(guest => ({
+      const mappedGuests: Guest[] = data.map((guest: any) => ({
         id: guest.id,
         name: guest.name,
         tableNumber: guest.table_number,
@@ -68,15 +68,15 @@ export const useGuests = () => {
     }
 
     if (user) {
-      const { error } = await supabase
-        .from('guests')
+      const { error } = await (supabase
+        .from('guests' as any)
         .insert([{
           user_id: user.id,
           name,
           table_number: tableNumber,
           phone_number: phoneNumber,
           is_verified: false
-        }]);
+        }]) as any);
 
       if (error) {
         console.error('Error adding guest:', error);
@@ -103,14 +103,14 @@ export const useGuests = () => {
 
   const updateGuest = async (id: string, name: string, tableNumber: string, phoneNumber: string) => {
     if (user) {
-      const { error } = await supabase
-        .from('guests')
+      const { error } = await (supabase
+        .from('guests' as any)
         .update({
           name,
           table_number: tableNumber,
           phone_number: phoneNumber
         })
-        .eq('id', id);
+        .eq('id', id) as any);
 
       if (error) {
         console.error('Error updating guest:', error);
@@ -129,10 +129,10 @@ export const useGuests = () => {
 
   const deleteGuest = async (id: string) => {
     if (user) {
-      const { error } = await supabase
-        .from('guests')
+      const { error } = await (supabase
+        .from('guests' as any)
         .delete()
-        .eq('id', id);
+        .eq('id', id) as any);
 
       if (error) {
         console.error('Error deleting guest:', error);
@@ -152,10 +152,10 @@ export const useGuests = () => {
       const guest = guests.find(g => g.id === id);
       if (!guest) return;
 
-      const { error } = await supabase
-        .from('guests')
+      const { error } = await (supabase
+        .from('guests' as any)
         .update({ is_verified: !guest.isVerified })
-        .eq('id', id);
+        .eq('id', id) as any);
 
       if (error) {
         console.error('Error verifying guest:', error);

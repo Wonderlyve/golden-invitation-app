@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { WeddingDetails } from '@/types/guest';
 import { supabase } from '@/integrations/supabase/client';
@@ -52,12 +51,12 @@ export const useWeddingDetails = () => {
   };
 
   const fetchWeddingDetails = async () => {
-    const { data, error } = await supabase
-      .from('wedding_details')
+    const { data, error } = await (supabase
+      .from('wedding_details' as any)
       .select('*')
-      .single();
+      .maybeSingle() as any);
 
-    if (error && error.code !== 'PGRST116') {
+    if (error) {
       console.error('Error fetching wedding details:', error);
       return;
     }
@@ -86,8 +85,8 @@ export const useWeddingDetails = () => {
     setWeddingDetails(details);
 
     if (user) {
-      const { error } = await supabase
-        .from('wedding_details')
+      const { error } = await (supabase
+        .from('wedding_details' as any)
         .upsert({
           user_id: user.id,
           groom_name: details.groomName,
@@ -101,7 +100,7 @@ export const useWeddingDetails = () => {
           invitation_text: details.invitationText,
           rsvp_phone_number: details.rsvpPhoneNumber,
           template: details.template
-        });
+        }) as any);
 
       if (error) {
         console.error('Error updating wedding details:', error);

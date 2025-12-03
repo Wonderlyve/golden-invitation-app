@@ -14,7 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      guests: {
+        Row: {
+          created_at: string
+          id: string
+          is_verified: boolean | null
+          name: string
+          phone_number: string | null
+          table_number: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_verified?: boolean | null
+          name: string
+          phone_number?: string | null
+          table_number?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_verified?: boolean | null
+          name?: string
+          phone_number?: string | null
+          table_number?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wedding_details: {
+        Row: {
+          bride_name: string | null
+          ceremony_time: string | null
+          couple_photo_url: string | null
+          created_at: string
+          groom_name: string | null
+          id: string
+          invitation_text: string | null
+          rsvp_phone_number: string | null
+          template: string | null
+          updated_at: string
+          user_id: string
+          venue: string | null
+          venue_location: string | null
+          website_url: string | null
+          wedding_date: string | null
+        }
+        Insert: {
+          bride_name?: string | null
+          ceremony_time?: string | null
+          couple_photo_url?: string | null
+          created_at?: string
+          groom_name?: string | null
+          id?: string
+          invitation_text?: string | null
+          rsvp_phone_number?: string | null
+          template?: string | null
+          updated_at?: string
+          user_id: string
+          venue?: string | null
+          venue_location?: string | null
+          website_url?: string | null
+          wedding_date?: string | null
+        }
+        Update: {
+          bride_name?: string | null
+          ceremony_time?: string | null
+          couple_photo_url?: string | null
+          created_at?: string
+          groom_name?: string | null
+          id?: string
+          invitation_text?: string | null
+          rsvp_phone_number?: string | null
+          template?: string | null
+          updated_at?: string
+          user_id?: string
+          venue?: string | null
+          venue_location?: string | null
+          website_url?: string | null
+          wedding_date?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
